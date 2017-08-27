@@ -42,8 +42,7 @@ def extract_all():
 	for key,value in other_patterns.items():
 		if not value is None:
 			extract_pattern(key, value, config.pattern_folder)
-	if remove_match:
-		output_train_txt_file = "%s/training_text.processed" % config.data_folder
-		output_test_txt_file = "%s/test_text.processed" % config.data_folder
-		df_train_txt_copy.to_csv(output_train_txt_file, sep="\|\|")
-		df_test_txt_copy.to_csv(output_test_txt_file, sep="\|\|")
+	output_train_txt_file = "%s/training_text.processed" % config.data_folder
+	output_test_txt_file = "%s/test_text.processed" % config.data_folder
+	df_train_txt_copy.to_csv(output_train_txt_file, sep="\|\|")
+	df_test_txt_copy.to_csv(output_test_txt_file, sep="\|\|")
