@@ -35,13 +35,13 @@ def extract_pattern(name, pattern, path, remove_match=False):
 	with open(filename, 'w') as f:
 		json.dump(res_test, f, indent=2)
 
-def extract_all(remove_match=False):
+def extract_all():
 	for key, value in patterns.items():
 		if not value is None:
-			extract_pattern(key, value, config.pattern_folder, remove_match)
+			extract_pattern(key, value, config.pattern_folder, remove_match=True)
 	for key,value in other_patterns.items():
 		if not value is None:
-			extract_pattern(key, value, config.pattern_folder, remove_match)
+			extract_pattern(key, value, config.pattern_folder)
 	if remove_match:
 		output_train_txt_file = "%s/training_text.processed" % config.data_folder
 		output_test_txt_file = "%s/test_text.processed" % config.data_folder
