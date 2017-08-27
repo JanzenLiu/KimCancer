@@ -10,13 +10,13 @@ from pattern_dict import patterns
 
 ## extract single pattern 
 def extract_pattern(name, pattern, path):
-	print("Extracting pattern %s from the entire training set" % name)
+	print("Extracting pattern %s from the entire training set..." % name)
 	res_train = {row['ID']:re.findall(pattern, row['Text']) for index,row in df_train_txt.iterrows()}
 	filename  = "%s/%s.train.json" % (path, name)
 	with open(filename, 'w') as f:
 		json.dump(res_train, f, indent=2)
 
-	print("Extracting pattern %s from the entire testing set" % name)
+	print("Extracting pattern %s from the entire testing set..." % name)
 	res_test = {row['ID']:re.findall(pattern, row['Text']) for index,row in df_test_txt.iterrows()}
 	filename  = "%s/%s.test.json" % (path, name)
 	with open(filename, 'w') as f:
