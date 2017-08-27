@@ -6,14 +6,14 @@ import numpy as np
 ############
 class ParamConfig:
 	def __init__(self,
-				feat_folder,
-				pattern_folder,
-				basic_tfidf_ngram_range=(1,3),
-				basic_tfidf_vocabulary_type="common",
-				cooccurrence_tfidf_ngram_range=(1,1),
-				cooccurrence_word_exclude_stopword=False,
-				stemmer_type="snowball",
-				count_feat_transform=np.sqrt):
+		     feat_folder,
+		     pattern_folder,
+		     basic_tfidf_ngram_range=(1,3),
+		     basic_tfidf_vocabulary_type="common",
+		     cooccurrence_tfidf_ngram_range=(1,1),
+		     cooccurrence_word_exclude_stopword=False,
+		     stemmer_type="snowball",
+		     count_feat_transform=np.sqrt):
 
 		self.n_classes = 9
 
@@ -64,6 +64,6 @@ class ParamConfig:
 
 ## initialize a param config
 config = ParamConfig(feat_folder="../../Feat/dev",
-					pattern_folder="../../Pattern/dev",
-					stemmer_type="porter",
-					cooccurrence_word_exclude_stopword=False)
+		     pattern_folder="../../Pattern/dev",
+		     stemmer_type="porter",
+		     cooccurrence_word_exclude_stopword=False)
