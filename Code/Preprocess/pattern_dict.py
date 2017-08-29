@@ -11,7 +11,7 @@ patterns = {
 	"figure_parenthesis": r" ?\( ?[Ff][Ii][Gg](?:[Uu][Rr][Ee])? ?\.? ?(?:\w+, )*(?:\w+ and )?\w+ ?\)", # (fig 1), (fig. 1), (Fig. 1), (Figure 1), (Figure. 1), (Figure. 1A)
 	"table_parenthesis": r"\( ?[Tt]ables? (?:\w+, )*(?:\w+ and )?\w+\) ?", # (Table 1), (Table S2)
 	"order_number_parenthesis": r"(?<= )\((?:\d+[,;] ?)*(?:\d+ ?and ?)?\d{1,3}\)", # (1), (1, 2), (2, 5, 10)
-	"order_alpha_number_parenthesis": r"(?<= )\((?:[a-zA-Z]\d+[,;] ?)*(?:[a-zA-Z]\d+ ?and ?)?[a-zA-Z]\d{1,3}\)", # (1), (1, 2), (2, 5, 10)
+	"order_alpha_number_parenthesis": r"(?<= )\((?:[a-z]\d{1,2}[,;] ?)*(?:[a-z]\d{1,2} ?and ?)?[a-z]\d{1,2}\)", # (1), (1, 2), (2, 5, 10)
 	"order_number_range_parenthesis": r"\(\d+\-\d+\)", # (2-5), (10-200)
 	"order_alpha_parenthesis": r"\((?:[A-HJ-Za-hj-z], )*[A-HJ-Za-hj-z]\)", # (A), (B), (a)
 	"order_roman_parenthesis": r"\((?:[ivxIVX]+, )*[ivxIVX]+\)", # (i), (iv), (XII), (i, ii)
