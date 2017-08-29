@@ -1,10 +1,12 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 import numpy as np
 import pandas as pd
 import re
 import json
-import sys
+import sys; sys.path.append("../")
 import pickle
-sys.path.append("../")
 from param_config import config
 from reader import df_train_txt, df_test_txt
 from pattern_dict import patterns, other_patterns
@@ -12,7 +14,7 @@ from pattern_dict import patterns, other_patterns
 df_train_txt_copy = df_train_txt.copy()
 df_test_txt_copy = df_test_txt.copy()
 
-## extract single pattern 
+## extract single pattern
 def extract_pattern(name, pattern, path, remove_match=False):
 	print("Extracting pattern %s from the entire training set..." % name)
 	# res_train = {row['ID']:re.findall(pattern, row['Text']) for index,row in df_train_txt.iterrows()}
