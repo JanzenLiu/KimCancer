@@ -22,7 +22,7 @@ def extract_pattern(name, pattern, path, remove_match=False):
 	for index, row in df_train_txt_copy.iterrows():
 		res_train[row['ID']] = re.findall(pattern, row['Text'])
 		if remove_match:
-			re.sub(pattern, "", row['Text'])
+			row['Text'] = re.sub(pattern, "", row['Text'])
 	filename  = "%s/%s.train.json" % (path, name)
 	with open(filename, 'w') as f:
 		json.dump(res_train, f, indent=2)
@@ -33,18 +33,25 @@ def extract_pattern(name, pattern, path, remove_match=False):
 	for index, row in df_test_txt_copy.iterrows():
 		res_test[row['ID']] = re.findall(pattern, row['Text'])
 		if remove_match:
-			re.sub(pattern, "", row['Text'])
+			row['Text'] = re.sub(pattern, "", row['Text'])
 	filename  = "%s/%s.test.json" % (path, name)
 	with open(filename, 'w') as f:
 		json.dump(res_test, f, indent=2)
 
 def extract_all():
+	with open(config.pattern_cache_file, "rb") as f:
+		old_patterns = pickle.load(f)
 	for key, value in patterns.items():
-		if not value is None:
-			extract_pattern(key, value, config.pattern_folder, remove_match=True)
+		if not value or old_patterns.get(key) == value:
+			continue
+		extract_pattern(key, value, config.pattern_folder, remove_match=True)
+		old_patterns[key] = value
+		with open(config.pattern_cache_file, "wb") as f:
+			pickle.dump(old_patterns, f)
 	for key,value in other_patterns.items():
-		if not value is None:
-			extract_pattern(key, value, config.pattern_folder)
+		if not value or old_patterns.get(key) == value:
+			continue
+		extract_pattern(key, value, config.pattern_folder)
 	output_train_txt_file = "%s/training_text.processed.p" % config.data_folder
 	output_test_txt_file = "%s/test_text.processed.p" % config.data_folder
 	with open(output_train_txt_file, "wb") as f:

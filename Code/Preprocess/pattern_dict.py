@@ -29,7 +29,7 @@ patterns = {
 	"variation": r"(?<=\W)[A-Z]\d{2,3}[A-Z*](?=\W)", # E452K, P90K, R358*
 	"ph_value": r"[Pp][Hh] \d+(?:\.\d{1,2})?", # ph 8, pH 8, PH 8, pH 8.0, pH 8.23, pH 10
 	"gene_seq": ur"5[′']?\-[^′'a-z]*[AGCTU]+[^′'a-z]*\-3[′']?", # 5′-CCGGGATGACCGGAGCACCTG-3′, 5′-M13-GGCCGATTCGACCTCTCT-3′
-	"url_http_plain": r"(?<![\(\[]])https?.+?(?:[ ,])" # http://pymol.org, http://www.olympusfluoview.com/java/colocalization/index.html
+	"url_http_plain": r"(?<![\(\[]])https?.+?(?=[ ,;\)])" # http://pymol.org, http://www.olympusfluoview.com/java/colocalization/index.html
 }
 
 other_patterns = {
