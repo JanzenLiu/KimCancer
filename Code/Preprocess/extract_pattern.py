@@ -9,7 +9,7 @@ import sys; sys.path.append("../")
 import pickle
 from param_config import config
 from reader import df_train_txt, df_test_txt
-from pattern_dict import patterns, other_patterns
+from pattern_dict import patterns, other_patterns, unicode_pattern
 
 df_train_txt_copy = df_train_txt.copy()
 df_test_txt_copy = df_test_txt.copy()
@@ -22,7 +22,7 @@ def extract_pattern(name, pattern, path, remove_match=False):
 	for index, row in df_train_txt_copy.iterrows():
 		res_train[row['ID']] = re.findall(pattern, row['Text'])
 		if remove_match:
-			row['Text'] = re.sub(pattern, "", row['Text'])
+			row.loc[index, 'Text'] = re.sub(pattern, "", row['Text'])
 	filename  = "%s/%s.train.json" % (path, name)
 	with open(filename, 'w') as f:
 		json.dump(res_train, f, indent=2)
@@ -33,7 +33,7 @@ def extract_pattern(name, pattern, path, remove_match=False):
 	for index, row in df_test_txt_copy.iterrows():
 		res_test[row['ID']] = re.findall(pattern, row['Text'])
 		if remove_match:
-			row['Text'] = re.sub(pattern, "", row['Text'])
+			row.loc[index, 'Text'] = re.sub(pattern, "", row['Text'])
 	filename  = "%s/%s.test.json" % (path, name)
 	with open(filename, 'w') as f:
 		json.dump(res_test, f, indent=2)
@@ -41,18 +41,20 @@ def extract_pattern(name, pattern, path, remove_match=False):
 def extract_all():
 	with open(config.pattern_cache_file, "rb") as f:
 		old_patterns = pickle.load(f)
+	
 	for key, value in patterns.items():
 		if not value or old_patterns.get(key) == value:
-			print("Skip the process of extracting pattern %s, it hasn't changed since last extraction" % key)
+			print("Skip extracting pattern %s, since it hasn't changed" % key)
 			continue
 		extract_pattern(key, value, config.pattern_folder, remove_match=True)
 		print("Updating pattern %s in cache..." % key)
 		old_patterns[key] = value
 		with open(config.pattern_cache_file, "wb") as f:
 			pickle.dump(old_patterns, f)
+	
 	for key,value in other_patterns.items():
 		if not value or old_patterns.get(key) == value:
-			print("Skip the process of extracting pattern %s, it hasn't changed since last extraction" % key)
+			print("Skip extracting pattern %s, since it hasn't changed" % key)
 			continue
 		extract_pattern(key, value, config.pattern_folder)
 		print("Updating pattern %s in cache..." % key)
