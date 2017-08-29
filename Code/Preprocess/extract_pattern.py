@@ -20,7 +20,7 @@ def extract_pattern(name, pattern, path, remove_match=False):
 	for index, row in df_train_txt_copy.iterrows():
 		res_train[row['ID']] = re.findall(pattern, row['Text'])
 		if remove_match:
-			re.sub(pattern, "", row['Text'])
+			row['Text'] = re.sub(pattern, "", row['Text'])
 	filename  = "%s/%s.train.json" % (path, name)
 	with open(filename, 'w') as f:
 		json.dump(res_train, f, indent=2)
@@ -31,7 +31,7 @@ def extract_pattern(name, pattern, path, remove_match=False):
 	for index, row in df_test_txt_copy.iterrows():
 		res_test[row['ID']] = re.findall(pattern, row['Text'])
 		if remove_match:
-			re.sub(pattern, "", row['Text'])
+			row['Text'] = re.sub(pattern, "", row['Text'])
 	filename  = "%s/%s.test.json" % (path, name)
 	with open(filename, 'w') as f:
 		json.dump(res_test, f, indent=2)
