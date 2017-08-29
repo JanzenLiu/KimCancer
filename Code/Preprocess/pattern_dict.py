@@ -4,6 +4,7 @@
 import re
 
 word_pattern = r"\b[A-Za-z]+\b"
+unicode_pattern = r"\\u[0-9a-fA-F]{4}" # to be verified
 
 patterns = {
 	## parenthesis

@@ -5,8 +5,10 @@ import numpy as np
 import pandas as pd
 import re
 import json
+import os
 import sys; sys.path.append("../")
 import pickle
+from collections import Counter
 from param_config import config
 from reader import df_train_txt, df_test_txt
 from pattern_dict import patterns, other_patterns, unicode_pattern
@@ -20,9 +22,9 @@ def extract_pattern(name, pattern, path, remove_match=False):
 	# res_train = {row['ID']:re.findall(pattern, row['Text']) for index,row in df_train_txt.iterrows()}
 	res_train = {}
 	for index, row in df_train_txt_copy.iterrows():
-		res_train[row['ID']] = re.findall(pattern, row['Text'])
+		res_train[row['ID']] = re.findall(pattern, row['Text'], re.UNICODE)
 		if remove_match:
-			row.loc[index, 'Text'] = re.sub(pattern, "", row['Text'])
+			row.loc[index, 'Text'] = re.sub(pattern, "", row['Text'], re.UNICODE)
 	filename  = "%s/%s.train.json" % (path, name)
 	with open(filename, 'w') as f:
 		json.dump(res_train, f, indent=2)
@@ -31,12 +33,27 @@ def extract_pattern(name, pattern, path, remove_match=False):
 	# res_test = {row['ID']:re.findall(pattern, row['Text']) for index,row in df_test_txt.iterrows()}
 	res_test = {}
 	for index, row in df_test_txt_copy.iterrows():
-		res_test[row['ID']] = re.findall(pattern, row['Text'])
+		res_test[row['ID']] = re.findall(pattern, row['Text'], re.UNICODE)
 		if remove_match:
-			row.loc[index, 'Text'] = re.sub(pattern, "", row['Text'])
+			row.loc[index, 'Text'] = re.sub(pattern, "", row['Text'], re.UNICODE)
 	filename  = "%s/%s.test.json" % (path, name)
 	with open(filename, 'w') as f:
 		json.dump(res_test, f, indent=2)
+
+def extract_unicode():
+	print("Extracting frequencies of unicode pattern...")
+	counter_train = Counter()
+	for index, row in df_train_txt_copy.iterrows():
+		counter_train += Counter(re.findall(unicode_pattern, row['Text']), re.UNICODE)
+	counter_test = Counter()
+	for index, row in df_test_txt_copy.iterrows():
+		counter_test += Counter(re.findall(unicode_pattern, row['Text']), re.UNICODE)
+	counter_all = counter_train + counter_test
+	output_unicode_freq_file = "%s/unicode.freq" % config.pattern_folder
+	with open(output_unicode_freq_file, "w"):
+		f.write("unicode,occurence" + os.linesep)
+		for key, value in counter_all.most_common():
+			f.write("%s,%d"%(key,value) + os.linesep)
 
 def extract_all():
 	with open(config.pattern_cache_file, "rb") as f:
