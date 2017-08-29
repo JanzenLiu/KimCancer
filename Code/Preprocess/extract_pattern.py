@@ -41,15 +41,22 @@ def extract_all():
 		old_patterns = pickle.load(f)
 	for key, value in patterns.items():
 		if not value or old_patterns.get(key) == value:
+			print("Skip the process of extracting pattern %s, it hasn't changed since last extraction" % key)
 			continue
 		extract_pattern(key, value, config.pattern_folder, remove_match=True)
+		print("Updating pattern %s in cache..." % key)
 		old_patterns[key] = value
 		with open(config.pattern_cache_file, "wb") as f:
 			pickle.dump(old_patterns, f)
 	for key,value in other_patterns.items():
 		if not value or old_patterns.get(key) == value:
+			print("Skip the process of extracting pattern %s, it hasn't changed since last extraction" % key)
 			continue
 		extract_pattern(key, value, config.pattern_folder)
+		print("Updating pattern %s in cache..." % key)
+		old_patterns[key] = value
+		with open(config.pattern_cache_file, "wb") as f:
+			pickle.dump(old_patterns, f)
 	output_train_txt_file = "%s/training_text.processed.p" % config.data_folder
 	output_test_txt_file = "%s/test_text.processed.p" % config.data_folder
 	with open(output_train_txt_file, "wb") as f:
