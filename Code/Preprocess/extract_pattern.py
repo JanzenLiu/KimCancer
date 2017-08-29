@@ -22,9 +22,9 @@ def extract_pattern(name, pattern, path, remove_match=False):
 	# res_train = {row['ID']:re.findall(pattern, row['Text']) for index,row in df_train_txt.iterrows()}
 	res_train = {}
 	for index, row in df_train_txt_copy.iterrows():
-		res_train[row['ID']] = re.findall(pattern, row['Text'], re.UNICODE)
+		res_train[row['ID']] = re.findall(pattern, row['Text'])
 		if remove_match:
-			df_train_txt_copy.set_value(index, 'Text', re.sub(pattern, "", row['Text'], re.UNICODE))
+			df_train_txt_copy.set_value(index, 'Text', re.sub(pattern, "", row['Text']))
 	filename  = "%s/%s.train.json" % (path, name)
 	with open(filename, 'w') as f:
 		json.dump(res_train, f, indent=2)
@@ -33,9 +33,9 @@ def extract_pattern(name, pattern, path, remove_match=False):
 	# res_test = {row['ID']:re.findall(pattern, row['Text']) for index,row in df_test_txt.iterrows()}
 	res_test = {}
 	for index, row in df_test_txt_copy.iterrows():
-		res_test[row['ID']] = re.findall(pattern, row['Text'], re.UNICODE)
+		res_test[row['ID']] = re.findall(pattern, row['Text'])
 		if remove_match:
-			df_test_txt_copy.set_value(index, 'Text', re.sub(pattern, "", row['Text'], re.UNICODE))
+			df_test_txt_copy.set_value(index, 'Text', re.sub(pattern, "", row['Text']))
 	filename  = "%s/%s.test.json" % (path, name)
 	with open(filename, 'w') as f:
 		json.dump(res_test, f, indent=2)
@@ -44,10 +44,10 @@ def extract_unicode():
 	print("Extracting frequencies of unicode pattern...")
 	counter_train = Counter()
 	for index, row in df_train_txt_copy.iterrows():
-		counter_train += Counter(re.findall(unicode_pattern, row['Text']), re.UNICODE)
+		counter_train += Counter(re.findall(unicode_pattern, row['Text']))
 	counter_test = Counter()
 	for index, row in df_test_txt_copy.iterrows():
-		counter_test += Counter(re.findall(unicode_pattern, row['Text']), re.UNICODE)
+		counter_test += Counter(re.findall(unicode_pattern, row['Text']))
 	counter_all = counter_train + counter_test
 	output_unicode_freq_file = "%s/unicode.freq" % config.pattern_folder
 	with open(output_unicode_freq_file, "w"):

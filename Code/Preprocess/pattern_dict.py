@@ -10,10 +10,11 @@ patterns = {
 	## parenthesis
 	"figure_parenthesis": r"\([Ff]ig(?:ure)?\.? \w+\)", # (fig 1), (fig. 1), (Fig. 1), (Figure 1), (Figure. 1), (Figure. 1A)
 	"table_parenthesis": r"\([Tt]able \w+\)", # (Table 1), (Table S2)
-	"order_number_parenthesis": r"(?<= )\((?:\d+, )*\d{1,3}\)", # (1), (1, 2), (2, 5, 10)
-	"order_number_range_parenthesis": r"(?<= )\(\d+\-\d+\)", # (2-5), (10-200)
-	"order_alpha_parenthesis": r"(?<= )\([A-Za-z]\)", # (A), (B), (a)
-	"cite_year_parenthesis": r"(?<= )\(\d{4}\)", # (1999), (2002)
+	"order_number_parenthesis": r"\((?:\d+, )*\d{1,3}\)", # (1), (1, 2), (2, 5, 10)
+	"order_number_range_parenthesis": r"\(\d+\-\d+\)", # (2-5), (10-200)
+	"order_alpha_parenthesis": r"\([A-HJ-Za-hj-z]\)", # (A), (B), (a)
+	"order_roman_parenthesis": r"\((?:[ivxIVX], )*[ivxIVX]\)" # (i), (iv), (XII), (i, ii)
+	"cite_year_parenthesis": r"\(\d{4}\)", # (1999), (2002)
 	"cite_name_year_parenthesis": r"\([^)]+, \d{4}\)", # (Youngs et al., 2011), (Slade et al., 2011; Doros et al., 2012)
 	"url_http_parenthesis": r"\(https?.+?\)", # (http://www.hgmd.cf.ac.uk/ac/index.php)
 	## square brackets
