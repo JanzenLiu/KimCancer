@@ -1,4 +1,5 @@
 import os
+import pickle
 import numpy as np
 
 ############
@@ -51,9 +52,14 @@ class ParamConfig:
 		if not os.path.exists("%s/All" % self.feat_folder):
 			os.makedirs("%s/All" % self.feat_folder)
 
-		## create pattern folder
+		## create pattern folder and cache file for processed patterns
 		if not os.path.exists(self.pattern_folder):
 			os.makedirs(self.pattern_folder)
+		self.pattern_cache_file = "%s/patterns.last_processed.p" % self.pattern_folder
+		if not os.path.exists(self.pattern_cache_file):
+			patterns = {}
+			with open(self.pattern_cache_file, "wb") as f:
+				pickle.dump(patterns, f)
 
 		## create folder for each run and fold
 		for run in range(1, self.n_runs+1):
