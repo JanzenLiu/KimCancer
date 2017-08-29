@@ -64,7 +64,7 @@ def extract_all():
 		if not value or old_patterns.get(key) == value:
 			print("Skip extracting pattern %s, since it hasn't changed" % key)
 			continue
-		flag = True
+		update_other = True
 		extract_pattern(key, value, config.pattern_folder, remove_match=True)
 		print("Updating pattern %s in cache..." % key)
 		old_patterns[key] = value
@@ -80,7 +80,7 @@ def extract_all():
 		old_patterns[key] = value
 		with open(config.pattern_cache_file, "wb") as f:
 			pickle.dump(old_patterns, f)
-			
+
 	output_train_txt_file = "%s/training_text.processed.p" % config.data_folder
 	output_test_txt_file = "%s/test_text.processed.p" % config.data_folder
 	with open(output_train_txt_file, "wb") as f:

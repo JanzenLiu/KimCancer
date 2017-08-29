@@ -8,15 +8,20 @@ unicode_pattern = r"\\u[0-9a-fA-F]{4}" # to be verified
 
 patterns = {
 	## parenthesis
-	"figure_parenthesis": r"\([Ff]ig(?:ure)?\.? \w+\)", # (fig 1), (fig. 1), (Fig. 1), (Figure 1), (Figure. 1), (Figure. 1A)
-	"table_parenthesis": r"\([Tt]able \w+\)", # (Table 1), (Table S2)
-	"order_number_parenthesis": r"\((?:\d+, )*\d{1,3}\)", # (1), (1, 2), (2, 5, 10)
+	"figure_parenthesis": r"\([Ff]ig(?:ure)?\.? ?(?:\w+, )*(?:\w+ and )?\w+\)", # (fig 1), (fig. 1), (Fig. 1), (Figure 1), (Figure. 1), (Figure. 1A)
+	"table_parenthesis": r"\([Tt]ables? (?:\w+, )*(?:\w+ and )?\w+\)", # (Table 1), (Table S2)
+	"order_number_parenthesis": r"(?<= )\((?:\d+, )*(?:\d+ and )?\d{1,3}\)", # (1), (1, 2), (2, 5, 10)
 	"order_number_range_parenthesis": r"\(\d+\-\d+\)", # (2-5), (10-200)
-	"order_alpha_parenthesis": r"\([A-HJ-Za-hj-z]\)", # (A), (B), (a)
+	"order_alpha_parenthesis": r"\((?:[A-HJ-Za-hj-z], )*[A-HJ-Za-hj-z]\)", # (A), (B), (a)
 	"order_roman_parenthesis": r"\((?:[ivxIVX]+, )*[ivxIVX]+\)", # (i), (iv), (XII), (i, ii)
 	"cite_year_parenthesis": r"\(\d{4}\)", # (1999), (2002)
-	"cite_name_year_parenthesis": r"\([^)]+, \d{4}\)", # (Youngs et al., 2011), (Slade et al., 2011; Doros et al., 2012)
+	"cite_name_year_parenthesis": r"\([^)]+, \d{4}[a-z]?\)", # (Youngs et al., 2011), (Slade et al., 2011; Doros et al., 2012)
 	"url_http_parenthesis": r"\(https?.+?\)", # (http://www.hgmd.cf.ac.uk/ac/index.php)
+	"patient_parenthesis": r"\(patients? (?:\d and )?\d\)", # (patients 3), (patients 4 and 5)
+	"version_parenthesis": r"\([Vv]ersion (?:\d+\.)*\d+\)", # (version 1.0.2)
+	"equation_parenthesis": r"\([Eq]uation\.? ?\d+\)", # (Equation 9)
+	"box_parenthesis": r"\([Bb]ox (?:\d+, )*(?:\d+ and )?\d+\)", # (Box 1)
+	"see_parenthesis": r"\([Ss]ee (?:\w+, )*(?:\w+ and )?\w+\)", # (see text), (see Materials and Methods)
 	## square brackets
 	"figure_square_brackets": r"\[[Ff]ig(?:ure)?\.? \w+\]", # [fig 1], [fig. 1], [Fig. 1], [Figure 1], [Figure. 1], [Figure. 1A]
 	"table_square_brackets": r"\[[Tt]able \w+\]", # [Table 1], [Table S2]
