@@ -19,13 +19,13 @@ df_test_txt_copy = df_test_txt.copy()
 ## extract single pattern
 def extract_pattern(name, pattern, path):
 	print("Extracting pattern %s from the entire training set..." % name)
-	res_train = {row['ID']:re.findall(pattern, row['Text']) for index,row in df_train_txt.iterrows()}
+	res_train = {row['ID']:re.findall(pattern, unicode(row['Text'], "utf-8")) for index, row in df_train_txt.iterrows()}
 	filename  = "%s/%s.train.json" % (path, name)
 	with open(filename, 'w') as f:
 		json.dump(res_train, f, indent=2)
 
 	print("Extracting pattern %s from the entire testing set..." % name)
-	res_test = {row['ID']:re.findall(pattern, row['Text']) for index,row in df_test_txt.iterrows()}
+	res_test = {row['ID']:re.findall(pattern, unicode(row['Text'], "utf-8")) for index, row in df_test_txt.iterrows()}
 	filename  = "%s/%s.test.json" % (path, name)
 	with open(filename, 'w') as f:
 		json.dump(res_test, f, indent=2)
@@ -34,20 +34,20 @@ def extract_pattern(name, pattern, path):
 def remove_pattern(name, pattern):
 	print("Removing pattern %s from the entire training set..." % name)
 	for index, row in df_train_txt_copy.iterrows():
-		df_train_txt_copy.set_value(index, 'Text', re.sub(pattern, "", row['Text']))
+		df_train_txt_copy.set_value(index, 'Text', re.sub(pattern, "", unicode(row['Text'], "utf-8")).encode("utf-8"))
 
 	print("Removing pattern %s from the entire testing set..." % name)
 	for index, row in df_test_txt_copy.iterrows():
-		df_test_txt_copy.set_value(index, 'Text', re.sub(pattern, "", row['Text']))
+		df_test_txt_copy.set_value(index, 'Text', re.sub(pattern, "", unicode(row['Text'], "utf-8")).encode("utf-8"))
 
 def extract_unicode():
 	print("Extracting frequencies of unicode pattern...")
 	counter_train = Counter()
 	for index, row in df_train_txt_copy.iterrows():
-		counter_train += Counter(re.findall(unicode_pattern, row['Text']))
+		counter_train += Counter(re.findall(unicode_pattern, unicode(row['Text'], "utf-8")))
 	counter_test = Counter()
 	for index, row in df_test_txt_copy.iterrows():
-		counter_test += Counter(re.findall(unicode_pattern, row['Text']))
+		counter_test += Counter(re.findall(unicode_pattern, unicode(row['Text'], "utf-8")))
 	counter_all = counter_train + counter_test
 	output_unicode_freq_file = "%s/unicode.freq" % config.pattern_folder
 	with open(output_unicode_freq_file, "w"):
@@ -59,7 +59,7 @@ def extract_all():
 	with open(config.pattern_cache_file, "rb") as f:
 		old_patterns = pickle.load(f)
 	update_other = False # if false, no need to extract others patterns again
-	
+
 	for key, value in patterns.items():
 		if not value or old_patterns.get(key) == value:
 			print("Skip extracting pattern %s, since it hasn't changed" % key)
@@ -70,7 +70,7 @@ def extract_all():
 		old_patterns[key] = value
 		with open(config.pattern_cache_file, "wb") as f:
 			pickle.dump(old_patterns, f)
-	
+
 	for key, value in patterns.items():
 		remove_pattern(key, value)
 
