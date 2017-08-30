@@ -65,7 +65,7 @@ def extract_all():
 			print("Skip extracting pattern %s, since it hasn't changed" % key)
 			continue
 		update_other = True
-		extract_pattern(key, value, config.pattern_folder, remove_match)
+		extract_pattern(key, value, config.pattern_folder)
 		print("Updating pattern %s in cache..." % key)
 		old_patterns[key] = value
 		with open(config.pattern_cache_file, "wb") as f:
