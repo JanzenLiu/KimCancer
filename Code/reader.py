@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import pickle
 import sys
+import os
 from param_config import config
 
 def load_original_text():
