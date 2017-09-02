@@ -12,6 +12,7 @@ from collections import Counter
 from param_config import config
 from reader import load_replaced_text
 from pattern_dict import patterns, other_patterns, unicode_pattern
+from unicode_dict import unicodes
 
 df_train_txt, df_test_txt = load_replaced_text()
 df_train_txt_copy = df_train_txt.copy()
@@ -63,10 +64,13 @@ def extract_unicode(df_train, df_test, unicode_pattern):
 def extract_all():
 	with open(config.pattern_cache_file, "rb") as f:
 		old_patterns = pickle.load(f)
+	with open(config.unicode_cache_file, "rb") as f:
+		old_unicodes = pickle.load(f)
+	unicode_unchanged = (unicodes == old_unicodes)
 	update_other = False # if false, no need to extract others patterns again
 
 	for key, value in patterns.items():
-		if not value or old_patterns.get(key) == value:
+		if old_patterns.get(key) == value and unicode_unchanged:
 			print("Skip extracting pattern %s, since it hasn't changed" % key)
 			continue
 		update_other = True
