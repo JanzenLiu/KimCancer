@@ -15,15 +15,15 @@ def count_unicode_in_text(text, code_regex):
 	return len(re.findall(code_regex, text, re.UNICODE))
 
 def extract_unicode_count(code_regex, code_name):
-	feat_name = "count_of_unicode_%s" % code_name
+	feat_name = "count_of_unicode_%s" % code_regex[1:]
 	output_train_count_file = "%s/%s.train.p" % (config.feat_folder, feat_name)
 	output_test_count_file = "%s/%s.test.p" % (config.feat_folder, feat_name)
 
-	print("Generating feature %s for the entire training set..." % feat_name)
+	print("Generating feature %s (%s) for the entire training set..." % (feat_name, code_name))
 	df_train_txt[feat_name] = df_train_txt["Text"].apply(lambda x: count_unicode_in_text(x, code_regex))
 	with open(output_train_count_file, "wb") as f:
 		pickle.dump(df_train_txt[feat_name], f)	
-	print("Generating feature %s for the entire testing set..." % feat_name)
+	print("Generating feature %s (%s) for the entire testing set..." % (feat_name, code_name))
 	df_test_txt[feat_name] = df_test_txt["Text"].apply(lambda x: count_unicode_in_text(x, code_regex))
 	with open(output_test_count_file, "wb") as f:
 		pickle.dump(df_test_txt[feat_name], f)
@@ -34,10 +34,10 @@ def extract_all():
 
 	for key, value in unicodes.items():
 		if old_unicodes.get(key) == value:
-			print("Skip extracting counting feature for unicode %s" % value)
+			print("Skip extracting counting feature for unicode %s (%s)" % (key[1:], value))
 			continue
 		extract_unicode_count(key, value)
-		print("Updating unicode %s in cache..." % value)
+		print("Updating unicode %s (%s) in cache..." % (key[1:], value))
 		old_unicodes[key] = value
 		with open(config.unicode_cache_file, "wb") as f:
 			pickle.dump(old_unicodes, f)
