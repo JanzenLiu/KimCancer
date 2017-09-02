@@ -10,9 +10,10 @@ import sys; sys.path.append("../")
 import pickle
 from collections import Counter
 from param_config import config
-from reader import df_train_txt, df_test_txt
+from reader import load_replaced_text
 from pattern_dict import patterns, other_patterns, unicode_pattern
 
+df_train_txt, df_test_txt = load_replaced_text()
 df_train_txt_copy = df_train_txt.copy()
 df_test_txt_copy = df_test_txt.copy()
 
@@ -40,13 +41,13 @@ def remove_pattern(name, pattern):
 	for index, row in df_test_txt_copy.iterrows():
 		df_test_txt_copy.set_value(index, 'Text', re.sub(pattern, "", row['Text']))
 
-def extract_unicode():
+def extract_unicode(df_train, df_test, unicode_pattern):
 	print("Extracting frequencies of unicode pattern...")
 	counter_train = Counter()
-	for index, row in df_train_txt_copy.iterrows():
+	for index, row in df_train.iterrows():
 		counter_train += Counter(re.findall(unicode_pattern, row['Text']))
 	counter_test = Counter()
-	for index, row in df_test_txt_copy.iterrows():
+	for index, row in df_test.iterrows():
 		counter_test += Counter(re.findall(unicode_pattern, row['Text']))
 	counter_all = counter_train + counter_test
 	output_unicode_freq_file = "%s/unicode.freq" % config.pattern_folder
@@ -84,8 +85,8 @@ def extract_all():
 		with open(config.pattern_cache_file, "wb") as f:
 			pickle.dump(old_patterns, f)
 
-	output_train_txt_file = "%s/training_text.processed.p" % config.data_folder
-	output_test_txt_file = "%s/test_text.processed.p" % config.data_folder
+	output_train_txt_file = "%s/training_text.cleaned_pattern.p" % config.data_folder
+	output_test_txt_file = "%s/test_text.cleaned_pattern.p" % config.data_folder
 	with open(output_train_txt_file, "wb") as f:
 		pickle.dump(df_train_txt_copy, f)
 	with open(output_test_txt_file, "wb") as f:
