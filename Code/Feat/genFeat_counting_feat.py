@@ -20,11 +20,11 @@ def extract_unicode_count(code_regex, code_name):
 	output_test_count_file = "%s/%s.test.p" % (config.feat_folder, feat_name)
 
 	print("Generating feature %s for the entire training set..." % feat_name)
-	df_train_txt[feat_name] = df_train_txt["Text"].apply(count_unicode_in_text)
+	df_train_txt[feat_name] = df_train_txt["Text"].apply(count_unicode_in_text, args=(code_regex))
 	with open(output_train_count_file, "wb") as f:
 		pickle.dump(df_train_txt[feat_name], f)	
 	print("Generating feature %s for the entire testing set..." % feat_name)
-	df_test_txt[feat_name] = df_test_txt["Text"].apply(count_unicode_in_text)
+	df_test_txt[feat_name] = df_test_txt["Text"].apply(count_unicode_in_text, args=(code_regex))
 	with open(output_test_count_file, "wb") as f:
 		pickle.dump(df_test_txt[feat_name], f)
 
