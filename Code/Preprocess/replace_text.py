@@ -14,10 +14,10 @@ df_train_txt, df_test_txt = load_original_text()
 def replace_unicode(code_regex, new_code):
 	print("Replacing unicode %s in the entire training set..." % new_code)
 	for index, row in df_train_txt.iterrows():
-		df_train_txt.loc[index]["Text"] = re.sub(code_regex, new_code, row["Text"], re.UNICODE)
+		df_train_txt.set_value(index, 'Text', re.sub(code_regex, new_code, row['Text'], re.UNICODE))
 	print("Replacing unicode %s in the entire testing set..." % new_code)
 	for index, row in df_test_txt.iterrows():
-		df_test_txt.loc[index]["Text"] = re.sub(code_regex, new_code, row["Text"], re.UNICODE)
+		df_test_txt.set_value(index, 'Text', re.sub(code_regex, new_code, row['Text'], re.UNICODE))
 
 def replace_all():
 	for key, value in unicodes.items():
