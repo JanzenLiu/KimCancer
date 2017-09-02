@@ -19,12 +19,14 @@ class ParamConfig:
 		     stemmer_type="snowball",
 		     count_feat_transform=np.sqrt):
 
+		self.n_rows_train = 3321
+		self.n_rows_test = 5668
 		self.n_classes = 9
 
 		## CV params
 		self.n_runs = 3
-		self.n_folds = 3
-		self.stratified_label = "Gene"
+		self.n_folds = 5
+		self.stratified_label = "Class"
 
 		## path
 		self.data_folder = "../../Data"

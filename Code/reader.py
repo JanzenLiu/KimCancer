@@ -21,7 +21,7 @@ def load_replaced_text():
 	replaced_train_text_path = "%s/training_text.replaced_unicode.p" % config.data_folder
 	replaced_test_text_path = "%s/test_text.replaced_unicode.p" % config.data_folder
 	if not (os.path.exists(replaced_train_text_path) and os.path.exists(replaced_test_text_path)):
-		print("[Error] Replaced text files do not exist")
+		print("[Warning] Replaced text files do not exist")
 		return load_original_text()
 	print("Loading replaced text for the entire training set...")
 	with open(replaced_train_text_path, "rb") as f:
@@ -35,7 +35,7 @@ def load_extracted_text():
 	extracted_train_text_path = "%s/training_text.extracted_pattern.p" % config.data_folder
 	extracted_test_text_path = "%s/test_text.extracted_pattern.p" % config.data_folder
 	if not (os.path.exists(extracted_train_text_path) and os.path.exists(extracted_test_text_path)):
-		print("[Error] Extracted text files do not exist")
+		print("[Warning] Extracted text files do not exist")
 		return load_original_text()
 	print("Loading extracted text for the entire training set...")
 	with open(extracted_train_text_path, "rb") as f:
@@ -44,3 +44,25 @@ def load_extracted_text():
 	with open(extracted_test_text_path, "rb") as f:
 		df_test_txt = pickle.load(f)
 	return df_train_txt, df_test_txt
+
+def load_combined_data(version="original"):
+	if version == "replaced":
+		df_train_txt, df_test_txt = load_replaced_text()
+	elif version == "extracted":
+		df_train_txt, df_test_txt = load_extracted_text()
+	else:
+		if version != "original":
+			print("[Warning] Version not found, return original data")
+		df_train_txt, df_test_txt = load_original_text()
+
+	df_train_var, df_test_var = load_original_variants()
+
+	y_train = df_train_var["Class"]
+	id_test = df_test_var["ID"]
+	df_train = pd.merge(df_train_txt, df_train_var, how="left", on="ID").fillna("")
+	df_train = df_train.drop(["ID", "Class"], axis=1)
+	df_test = pd.merge(df_test_txt, df_test_var, how="left", on="ID").fillna("")
+	df_test = df_test.drop(["ID"], axis=1)
+	
+	df_combine = pd.concat((df_train, df_test), axis=0, ignore_index=True)
+	return df_combine, y_train, id_test
