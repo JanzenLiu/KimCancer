@@ -29,7 +29,7 @@ def extract_unicode_count(code_regex, code_name):
 		pickle.dump(df_test_txt[feat_name], f)
 
 def extract_all():
-	with open(config.unicodes_cache_file, "rb") as f:
+	with open(config.unicode_cache_file, "rb") as f:
 		old_unicodes = pickle.load(f)
 
 	for key, value in unicodes.items():
@@ -39,5 +39,5 @@ def extract_all():
 		extract_unicode_count(key, value)
 		print("Updating unicode %s in cache..." % value)
 		old_unicodes[key] = value
-		with open(config.unicodes_cache_file, "wb") as f:
+		with open(config.unicode_cache_file, "wb") as f:
 			pickle.dump(old_unicodes, f)
