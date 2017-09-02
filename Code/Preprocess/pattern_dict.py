@@ -20,7 +20,7 @@ patterns = {
 	"url_http_parenthesis": r"\(https?.+?\)", # (http://www.hgmd.cf.ac.uk/ac/index.php)
 	"patient_parenthesis": r"\(patients? (?:\d and )?\d\)", # (patients 3), (patients 4 and 5)
 	"version_parenthesis": r"\([Vv]ersion (?:\d+\.)*\d+\)", # (version 1.0.2)
-	"equation_parenthesis": r"\( ?[Eq](?:uation)?\.? ?\w+\)", # (Equation 9)
+	"equation_parenthesis": r"\( ?Eq(?:uation)?\.? ?\w+\)", # (Equation 9)
 	"box_parenthesis": r"\( ?[Bb]ox\.? (?:\d+, )*(?:\d+ and )?\d+\)", # (Box 1)
 	"see_parenthesis": r"\([Ss]ee (?:\w+, )*(?:\w+ and )?\w+\)", # (see text), (see Materials and Methods)
 	## square brackets
