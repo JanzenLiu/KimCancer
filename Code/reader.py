@@ -26,3 +26,14 @@ def load_replaced_text():
 	with open(replaced_test_text_path, "rb") as f:
 		df_test_txt = pickle.load(f)
 	return df_train_txt, df_test_txt
+
+def load_extracted_text():
+	extracted_train_text_path = "%s/training_text.extracted_pattern.p" % config.data_folder
+	extracted_test_text_path = "%s/test_text.extracted_pattern.p" % config.data_folder
+	print("Loading extracted text for the entire training set...")
+	with open(extracted_train_text_path, "rb") as f:
+		df_train_txt = pickle.load(f)
+	print("Loading extracted text for the entire testing set...")
+	with open(extracted_test_text_path, "rb") as f:
+		df_test_txt = pickle.load(f)
+	return df_train_txt, df_test_txt

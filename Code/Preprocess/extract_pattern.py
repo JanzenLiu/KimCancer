@@ -85,8 +85,8 @@ def extract_all():
 		with open(config.pattern_cache_file, "wb") as f:
 			pickle.dump(old_patterns, f)
 
-	output_train_txt_file = "%s/training_text.cleaned_pattern.p" % config.data_folder
-	output_test_txt_file = "%s/test_text.cleaned_pattern.p" % config.data_folder
+	output_train_txt_file = "%s/training_text.extracted_pattern.p" % config.data_folder
+	output_test_txt_file = "%s/test_text.extracted_pattern.p" % config.data_folder
 	with open(output_train_txt_file, "wb") as f:
 		pickle.dump(df_train_txt_copy, f)
 	with open(output_test_txt_file, "wb") as f:
