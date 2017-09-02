@@ -70,28 +70,32 @@ def extract_all():
 	update_other = False # if false, no need to extract others patterns again
 
 	for key, value in patterns.items():
-		if old_patterns.get(key) == value and unicode_unchanged:
+		pattern_unchanged = (old_patterns.get(key) == value)
+		if pattern_unchanged and unicode_unchanged:
 			print("Skip extracting pattern %s, since it hasn't changed" % key)
 			continue
 		update_other = True
 		extract_pattern(key, value, config.pattern_folder)
-		print("Updating pattern %s in cache..." % key)
-		old_patterns[key] = value
-		with open(config.pattern_cache_file, "wb") as f:
-			pickle.dump(old_patterns, f)
+		if not pattern_unchanged:
+			print("Updating pattern %s in cache..." % key)
+			old_patterns[key] = value
+			with open(config.pattern_cache_file, "wb") as f:
+				pickle.dump(old_patterns, f)
 
 	for key, value in patterns.items():
 		remove_pattern(key, value)
 
 	for key,value in other_patterns.items():
-		if not update_other and (not value or old_patterns.get(key) == value):
+		pattern_unchanged = (old_patterns.get(key) == value)
+		if (not update_other) and pattern_unchanged and unicode_unchanged:
 			print("Skip extracting pattern %s, since it hasn't changed" % key)
 			continue
 		extract_pattern(key, value, config.pattern_folder)
-		print("Updating pattern %s in cache..." % key)
-		old_patterns[key] = value
-		with open(config.pattern_cache_file, "wb") as f:
-			pickle.dump(old_patterns, f)
+		if not pattern_unchanged:
+			print("Updating pattern %s in cache..." % key)
+			old_patterns[key] = value
+			with open(config.pattern_cache_file, "wb") as f:
+				pickle.dump(old_patterns, f)
 
 	output_train_txt_file = "%s/training_text.extracted_pattern.p" % config.data_folder
 	output_test_txt_file = "%s/test_text.extracted_pattern.p" % config.data_folder
