@@ -36,6 +36,8 @@ class ParamConfig:
 		self.original_test_variant_path = "%s/test_variants" % self.data_folder
 		self.processed_train_data_path = "%s/train.processed.p" % self.feat_folder
 		self.processed_test_data_path = "%s/test.processed.p" % self.feat_folder
+		self.pattern_cache_file = "%s/patterns.last_processed.p" % self.pattern_folder
+		self.unicode_cache_file = "%s/unicodes.last_processed.p" % self.data_folder
 
 		## nlp related
 		self.basic_tfidf_ngram_range = basic_tfidf_ngram_range
@@ -46,6 +48,12 @@ class ParamConfig:
 
 		## transform for count features
 		self.count_feat_transform = count_feat_transform
+
+		## create cache file for special unicodes used to extract features
+		if not os.path.exists(self.unicode_cache_file):
+			unicodes = {}
+			with open(self.unicode_cache_file, "wb") as f:
+				pickle.dump(unicodes, f)
 
 		## create feat folder
 		if not os.path.exists(self.feat_folder):
@@ -58,7 +66,6 @@ class ParamConfig:
 		## create pattern folder and cache file for processed patterns
 		if not os.path.exists(self.pattern_folder):
 			os.makedirs(self.pattern_folder)
-		self.pattern_cache_file = "%s/patterns.last_processed.p" % self.pattern_folder
 		if not os.path.exists(self.pattern_cache_file):
 			patterns = {}
 			with open(self.pattern_cache_file, "wb") as f:

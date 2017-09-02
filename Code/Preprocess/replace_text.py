@@ -20,9 +20,16 @@ def replace_unicode(code_regex, new_code):
 		df_test_txt.loc[index]["Text"] = re.sub(code_regex, new_code, row["Text"], re.UNICODE)
 
 def replace_all():
+	with open(config.unicodes_cache_file, "rb") as f:
+		old_unicodes = pickle.load(f)
+	if unicodes == old_unicodes:
+		return
+
 	for key, value in unicodes.items():
 		replace_unicode(key, value)
-		
+	with open(config.unicodes_cache_file, "wb") as f:
+		pickle.dump(unicodes, f)
+
 	output_train_txt_file = "%s/training_text.replaced_unicode.p" % config.data_folder
 	output_test_txt_file = "%s/test_text.replaced_unicode.p" % config.data_folder
 	print("Saving replaced text data of the entire training set...")
