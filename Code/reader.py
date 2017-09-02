@@ -19,6 +19,9 @@ def load_original_variants():
 def load_replaced_text():
 	replaced_train_text_path = "%s/training_text.replaced_unicode.p" % config.data_folder
 	replaced_test_text_path = "%s/test_text.replaced_unicode.p" % config.data_folder
+	if not (os.path.exists(replaced_train_text_path) and os.path.exists(replaced_test_text_path)):
+		print("[Error] Replaced text files do not exist")
+		return
 	print("Loading replaced text for the entire training set...")
 	with open(replaced_train_text_path, "rb") as f:
 		df_train_txt = pickle.load(f)
@@ -30,6 +33,9 @@ def load_replaced_text():
 def load_extracted_text():
 	extracted_train_text_path = "%s/training_text.extracted_pattern.p" % config.data_folder
 	extracted_test_text_path = "%s/test_text.extracted_pattern.p" % config.data_folder
+	if not (os.path.exists(extracted_train_text_path) and os.path.exists(extracted_test_text_path)):
+		print("[Error] Extracted text files do not exist")
+		return
 	print("Loading extracted text for the entire training set...")
 	with open(extracted_train_text_path, "rb") as f:
 		df_train_txt = pickle.load(f)
