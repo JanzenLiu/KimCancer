@@ -16,8 +16,8 @@ def count_unicode_in_text(text, code_regex):
 
 def extract_unicode_count(code_regex, code_name):
 	feat_name = "count_of_unicode_%s" % code_regex[1:]
-	output_train_count_file = "%s/%s.train.p" % (config.feat_folder, feat_name)
-	output_test_count_file = "%s/%s.test.p" % (config.feat_folder, feat_name)
+	output_train_count_file = "%s/Raw/%s.train.p" % (config.feat_folder, feat_name)
+	output_test_count_file = "%s/Raw/%s.test.p" % (config.feat_folder, feat_name)
 
 	print("Generating feature %s (%s) for the entire training set..." % (feat_name, code_name))
 	df_train_txt[feat_name] = df_train_txt["Text"].apply(lambda x: count_unicode_in_text(x, code_regex))

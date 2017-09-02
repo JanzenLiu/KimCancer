@@ -59,9 +59,11 @@ class ParamConfig:
 		if not os.path.exists(self.feat_folder):
 			os.makedirs(self.feat_folder)
 
-		## create folder for the training and testing feat
+		## create folder for the training, testing feat and raw output
 		if not os.path.exists("%s/All" % self.feat_folder):
 			os.makedirs("%s/All" % self.feat_folder)
+		if not os.path.exists("%s/Raw" % self.feat_folder):
+			os.makedirs("%s/Raw" % self.feat_folder)
 
 		## create pattern folder and cache file for processed patterns
 		if not os.path.exists(self.pattern_folder):
