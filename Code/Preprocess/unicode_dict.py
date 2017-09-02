@@ -197,6 +197,6 @@ unicodes = {
 	r"\u2662":"?",
 	r"\udbc0":"?",
 	r"\u0161":"?",
-	r"\u00e0":"¨a", # latin letter
+	r"\u00e0":"a", # latin letter
 	r"\udc42":"?"
 }
