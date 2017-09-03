@@ -20,14 +20,15 @@ df_test_txt_copy = df_test_txt.copy()
 
 ## extract single pattern
 def extract_pattern(name, pattern, path):
-	print("Extracting pattern %s from the entire training set..." % name)
+	print("Extracting pattern %s..." % name)
+	# print("Extracting pattern %s from the entire training set..." % name)
 	# res_train = {row['ID']:re.findall(pattern, unicode(row['Text'], "utf-8")) for index, row in df_train_txt.iterrows()}
 	res_train = {row['ID']:re.findall(pattern, row['Text'], re.UNICODE) for index, row in df_train_txt.iterrows()}
 	filename  = "%s/%s.train.json" % (path, name)
 	with open(filename, 'w') as f:
 		json.dump(res_train, f, indent=2)
 
-	print("Extracting pattern %s from the entire testing set..." % name)
+	# print("Extracting pattern %s from the entire testing set..." % name)
 	# res_test = {row['ID']:re.findall(pattern, unicode(row['Text'], "utf-8")) for index, row in df_test_txt.iterrows()}
 	res_test = {row['ID']:re.findall(pattern, row['Text'], re.UNICODE) for index, row in df_test_txt.iterrows()}
 	filename  = "%s/%s.test.json" % (path, name)
@@ -36,12 +37,13 @@ def extract_pattern(name, pattern, path):
 
 ## remove single pattern from text
 def remove_pattern(name, pattern):
-	print("Removing pattern %s from the entire training set..." % name)
+	print("Removing pattern %s..." % name)
+	# print("Removing pattern %s from the entire training set..." % name)
 	for index, row in df_train_txt_copy.iterrows():
 		# df_train_txt_copy.set_value(index, 'Text', re.sub(pattern, "", unicode(row['Text'], "utf-8")).encode("utf-8"))
 		df_train_txt_copy.set_value(index, 'Text', re.sub(pattern, "", row['Text'], re.UNICODE))
 
-	print("Removing pattern %s from the entire testing set..." % name)
+	# print("Removing pattern %s from the entire testing set..." % name)
 	for index, row in df_test_txt_copy.iterrows():
 		# df_test_txt_copy.set_value(index, 'Text', re.sub(pattern, "", unicode(row['Text'], "utf-8")).encode("utf-8"))
 		df_test_txt_copy.set_value(index, 'Text', re.sub(pattern, "", row['Text'], re.UNICODE))
