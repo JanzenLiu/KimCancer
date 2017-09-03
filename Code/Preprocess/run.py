@@ -1,6 +1,7 @@
 import pickle
 import sys; sys.path.append("../")
 from param_config import config
+from reader import load_extracted_text, load_original_variants
 
 from replace_text import replace_all
 replace_all()
