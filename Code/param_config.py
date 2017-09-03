@@ -37,6 +37,13 @@ class ParamConfig:
 		self.processed_train_data_path = "%s/train.processed.p" % self.feat_folder
 		self.processed_test_data_path = "%s/test.processed.p" % self.feat_folder
 
+		self.main_dictionary_path = '../External/350k_dictionary.txt'
+		self.suppliment_dict_path = '../External/10k_dictionary.txt'
+		self.special_words_train_savepath = '../Vocabulary/special_words.train.json'
+		self.special_words_test_savepath = '../Vocabulary/special_words.test.json'
+		self.common_words_train_savepath = '../Vocabulary/common_words.train.json'
+		self.common_words_test_savepath = '../Vocabulary/common_words.test.json'
+
 		## nlp related
 		self.basic_tfidf_ngram_range = basic_tfidf_ngram_range
 		self.basic_tfidf_vocabulary_type = basic_tfidf_vocabulary_type
@@ -70,6 +77,10 @@ class ParamConfig:
 				path = "%s/Run%d/Fold%d" % (self.feat_folder, run, fold)
 				if not os.path.exists(path):
 					os.makedirs(path)
+
+		## create folder for vocabulary
+		if not os.path.exists('../Vocabulary'):
+			os.makedirs('../Vocabulary')
 
 ## initialize a param config
 config = ParamConfig(feat_folder="../../Feat/dev",
