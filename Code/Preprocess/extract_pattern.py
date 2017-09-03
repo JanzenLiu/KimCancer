@@ -10,44 +10,52 @@ import sys; sys.path.append("../")
 import pickle
 from collections import Counter
 from param_config import config
-from reader import df_train_txt, df_test_txt
+from reader import load_replaced_text
 from pattern_dict import patterns, other_patterns, unicode_pattern
+from unicode_dict import unicodes
 
+df_train_txt, df_test_txt = load_replaced_text()
 df_train_txt_copy = df_train_txt.copy()
 df_test_txt_copy = df_test_txt.copy()
 
 ## extract single pattern
 def extract_pattern(name, pattern, path):
-	print("Extracting pattern %s from the entire training set..." % name)
-	res_train = {row['ID']:re.findall(pattern, unicode(row['Text'], "utf-8")) for index, row in df_train_txt.iterrows()}
+	print("Extracting pattern %s..." % name)
+	# print("Extracting pattern %s from the entire training set..." % name)
+	# res_train = {row['ID']:re.findall(pattern, unicode(row['Text'], "utf-8")) for index, row in df_train_txt.iterrows()}
+	res_train = {row['ID']:re.findall(pattern, row['Text'], re.UNICODE) for index, row in df_train_txt.iterrows()}
 	filename  = "%s/%s.train.json" % (path, name)
 	with open(filename, 'w') as f:
 		json.dump(res_train, f, indent=2)
 
-	print("Extracting pattern %s from the entire testing set..." % name)
-	res_test = {row['ID']:re.findall(pattern, unicode(row['Text'], "utf-8")) for index, row in df_test_txt.iterrows()}
+	# print("Extracting pattern %s from the entire testing set..." % name)
+	# res_test = {row['ID']:re.findall(pattern, unicode(row['Text'], "utf-8")) for index, row in df_test_txt.iterrows()}
+	res_test = {row['ID']:re.findall(pattern, row['Text'], re.UNICODE) for index, row in df_test_txt.iterrows()}
 	filename  = "%s/%s.test.json" % (path, name)
 	with open(filename, 'w') as f:
 		json.dump(res_test, f, indent=2)
 
 ## remove single pattern from text
 def remove_pattern(name, pattern):
-	print("Removing pattern %s from the entire training set..." % name)
+	print("Removing pattern %s..." % name)
+	# print("Removing pattern %s from the entire training set..." % name)
 	for index, row in df_train_txt_copy.iterrows():
-		df_train_txt_copy.set_value(index, 'Text', re.sub(pattern, "", unicode(row['Text'], "utf-8")).encode("utf-8"))
+		# df_train_txt_copy.set_value(index, 'Text', re.sub(pattern, "", unicode(row['Text'], "utf-8")).encode("utf-8"))
+		df_train_txt_copy.set_value(index, 'Text', re.sub(pattern, "", row['Text'], re.UNICODE))
 
-	print("Removing pattern %s from the entire testing set..." % name)
+	# print("Removing pattern %s from the entire testing set..." % name)
 	for index, row in df_test_txt_copy.iterrows():
-		df_test_txt_copy.set_value(index, 'Text', re.sub(pattern, "", unicode(row['Text'], "utf-8")).encode("utf-8"))
+		# df_test_txt_copy.set_value(index, 'Text', re.sub(pattern, "", unicode(row['Text'], "utf-8")).encode("utf-8"))
+		df_test_txt_copy.set_value(index, 'Text', re.sub(pattern, "", row['Text'], re.UNICODE))
 
-def extract_unicode():
+def extract_unicode(df_train, df_test, unicode_pattern):
 	print("Extracting frequencies of unicode pattern...")
 	counter_train = Counter()
-	for index, row in df_train_txt_copy.iterrows():
-		counter_train += Counter(re.findall(unicode_pattern, unicode(row['Text'], "utf-8")))
+	for index, row in df_train.iterrows():
+		counter_train += Counter(re.findall(unicode_pattern, row['Text'], re.UNICODE))
 	counter_test = Counter()
-	for index, row in df_test_txt_copy.iterrows():
-		counter_test += Counter(re.findall(unicode_pattern, unicode(row['Text'], "utf-8")))
+	for index, row in df_test.iterrows():
+		counter_test += Counter(re.findall(unicode_pattern, row['Text'], re.UNICODE))
 	counter_all = counter_train + counter_test
 	output_unicode_freq_file = "%s/unicode.freq" % config.pattern_folder
 	with open(output_unicode_freq_file, "w"):
@@ -58,34 +66,41 @@ def extract_unicode():
 def extract_all():
 	with open(config.pattern_cache_file, "rb") as f:
 		old_patterns = pickle.load(f)
+	with open(config.unicode_cache_file, "rb") as f:
+		old_unicodes = pickle.load(f)
+	unicode_unchanged = (unicodes.keys() == old_unicodes.keys())
 	update_other = False # if false, no need to extract others patterns again
 
 	for key, value in patterns.items():
-		if not value or old_patterns.get(key) == value:
+		pattern_unchanged = (old_patterns.get(key) == value)
+		if pattern_unchanged and unicode_unchanged:
 			print("Skip extracting pattern %s, since it hasn't changed" % key)
 			continue
 		update_other = True
 		extract_pattern(key, value, config.pattern_folder)
-		print("Updating pattern %s in cache..." % key)
-		old_patterns[key] = value
-		with open(config.pattern_cache_file, "wb") as f:
-			pickle.dump(old_patterns, f)
+		if not pattern_unchanged:
+			print("Updating pattern %s in cache..." % key)
+			old_patterns[key] = value
+			with open(config.pattern_cache_file, "wb") as f:
+				pickle.dump(old_patterns, f)
 
 	for key, value in patterns.items():
 		remove_pattern(key, value)
 
 	for key,value in other_patterns.items():
-		if not update_other and (not value or old_patterns.get(key) == value):
+		pattern_unchanged = (old_patterns.get(key) == value)
+		if (not update_other) and pattern_unchanged and unicode_unchanged:
 			print("Skip extracting pattern %s, since it hasn't changed" % key)
 			continue
 		extract_pattern(key, value, config.pattern_folder)
-		print("Updating pattern %s in cache..." % key)
-		old_patterns[key] = value
-		with open(config.pattern_cache_file, "wb") as f:
-			pickle.dump(old_patterns, f)
+		if not pattern_unchanged:
+			print("Updating pattern %s in cache..." % key)
+			old_patterns[key] = value
+			with open(config.pattern_cache_file, "wb") as f:
+				pickle.dump(old_patterns, f)
 
-	output_train_txt_file = "%s/training_text.processed.p" % config.data_folder
-	output_test_txt_file = "%s/test_text.processed.p" % config.data_folder
+	output_train_txt_file = "%s/training_text.extracted_pattern.p" % config.data_folder
+	output_test_txt_file = "%s/test_text.extracted_pattern.p" % config.data_folder
 	with open(output_train_txt_file, "wb") as f:
 		pickle.dump(df_train_txt_copy, f)
 	with open(output_test_txt_file, "wb") as f:

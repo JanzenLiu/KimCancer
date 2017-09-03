@@ -19,12 +19,14 @@ class ParamConfig:
 		     stemmer_type="snowball",
 		     count_feat_transform=np.sqrt):
 
+		self.n_rows_train = 3321 # hardcoded value
+		self.n_rows_test = 5668 # hardcoded value
 		self.n_classes = 9
 
 		## CV params
 		self.n_runs = 3
-		self.n_folds = 3
-		self.stratified_label = "Gene"
+		self.n_folds = 5
+		self.stratified_label = "disease_class"
 
 		## path
 		self.data_folder = "../../Data"
@@ -36,6 +38,8 @@ class ParamConfig:
 		self.original_test_variant_path = "%s/test_variants" % self.data_folder
 		self.processed_train_data_path = "%s/train.processed.p" % self.feat_folder
 		self.processed_test_data_path = "%s/test.processed.p" % self.feat_folder
+		self.pattern_cache_file = "%s/patterns.last_processed.p" % self.pattern_folder
+		self.unicode_cache_file = "%s/unicodes.last_processed.p" % self.data_folder
 
 		self.main_dictionary_path = '../External/350k_dictionary.txt'
 		self.suppliment_dict_path = '../External/10k_dictionary.txt'
@@ -54,18 +58,25 @@ class ParamConfig:
 		## transform for count features
 		self.count_feat_transform = count_feat_transform
 
+		## create cache file for special unicodes used to extract features
+		if not os.path.exists(self.unicode_cache_file):
+			unicodes = {}
+			with open(self.unicode_cache_file, "wb") as f:
+				pickle.dump(unicodes, f)
+
 		## create feat folder
 		if not os.path.exists(self.feat_folder):
 			os.makedirs(self.feat_folder)
 
-		## create folder for the training and testing feat
+		## create folder for the training, testing feat and raw output
 		if not os.path.exists("%s/All" % self.feat_folder):
 			os.makedirs("%s/All" % self.feat_folder)
+		if not os.path.exists("%s/Raw" % self.feat_folder):
+			os.makedirs("%s/Raw" % self.feat_folder)
 
 		## create pattern folder and cache file for processed patterns
 		if not os.path.exists(self.pattern_folder):
 			os.makedirs(self.pattern_folder)
-		self.pattern_cache_file = "%s/patterns.last_processed.p" % self.pattern_folder
 		if not os.path.exists(self.pattern_cache_file):
 			patterns = {}
 			with open(self.pattern_cache_file, "wb") as f:
