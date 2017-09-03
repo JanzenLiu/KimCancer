@@ -1,12 +1,12 @@
 import pickle
 import sys; sys.path.append("../")
-from param_config import param_config
+from param_config import config
 
-# from replace_text import replace_all
-# replace_all()
+from replace_text import replace_all
+replace_all()
 
-# from extract_pattern import extract_all
-# extract_all()
+from extract_pattern import extract_all
+extract_all()
 
 def dump_processed_data():
 	df_train_txt, df_test_txt = load_extracted_text()
