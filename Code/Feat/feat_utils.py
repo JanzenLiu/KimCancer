@@ -10,7 +10,7 @@ def dump_feat(df_train, df_test, feat_name):
 	## For cross-validation
 	for run in range(config.n_runs):
 		## use 80% for training and 20% for validation
-		for fold, (trainInd, validInd) in enumberate(skf[run]):
+		for fold, (trainInd, validInd) in enumerate(skf[run]):
 			path = "%s/Run%d/Fold%d" % (config.feat_folder, run+1, fold+1)
 			X_train = df_train[feat_name].values[trainInd]
 			X_valid = df_train[feat_name].values[validInd]
@@ -32,7 +32,7 @@ def dump_feats(df_train, df_test, feat_names):
 	print("For cross-validation...")
 	for run in range(config.n_runs):
 		## use 80% for training and 20% for validation
-		for fold, (trainInd, validInd) in enumberate(skf[run]):
+		for fold, (trainInd, validInd) in enumerate(skf[run]):
 			print("Run: %d, Fold: %d" % (run+1, fold+1))
 			path = "%s/Run%d/Fold%d" % (config.feat_folder, run+1, fold+1)
 
