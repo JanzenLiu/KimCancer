@@ -45,7 +45,6 @@ def dump_feats(df_train, df_test, feat_names):
 					pickle.dump(X_valid, f)
 	print("Done.")
 
-
 	print("For training and testing...")
 	path = "%s/All" % config.feat_folder
 	for feat_name in feat_names:

@@ -45,6 +45,13 @@ def load_extracted_text():
 		df_test_txt = pickle.load(f)
 	return df_train_txt, df_test_txt
 
+def load_processed_data():
+	with open(config.processed_train_data_path, "rb") as f:
+		df_train = pickle.load(f)
+	with open(config.processed_test_data_path, "rb") as f:
+		df_test = pickle.load(f)
+	return df_train, df_test
+
 def load_combined_data(version="original"):
 	if version == "replaced":
 		df_train_txt, df_test_txt = load_replaced_text()

@@ -19,8 +19,8 @@ class ParamConfig:
 		     stemmer_type="snowball",
 		     count_feat_transform=np.sqrt):
 
-		self.n_rows_train = 3321
-		self.n_rows_test = 5668
+		self.n_rows_train = 3321 # hardcoded value
+		self.n_rows_test = 5668 # hardcoded value
 		self.n_classes = 9
 
 		## CV params
