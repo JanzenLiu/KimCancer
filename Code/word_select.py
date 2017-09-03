@@ -85,7 +85,6 @@ if __name__ == '__main__':
 
     with open('../Data/training_text.processed.p') as text_file:
         text = pickle.load(text_file)
-    assert len(text) == 3321
     print 'complete loading processed training text'
 
     for index, row in text.iterrows():
@@ -104,7 +103,6 @@ if __name__ == '__main__':
 
     with open('../Data/test_text.processed.p') as text_file:
         text = pickle.load(text_file)
-    assert len(text) == 3321
     print 'complete loading processed testing text'
 
     for index, row in text.iterrows():
