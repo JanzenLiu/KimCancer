@@ -26,7 +26,7 @@ class ParamConfig:
 		## CV params
 		self.n_runs = 3
 		self.n_folds = 5
-		self.stratified_label = "Class"
+		self.stratified_label = "disease_class"
 
 		## path
 		self.data_folder = "../../Data"
