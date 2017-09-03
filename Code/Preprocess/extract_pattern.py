@@ -68,7 +68,7 @@ def extract_all():
 		old_patterns = pickle.load(f)
 	with open(config.unicode_cache_file, "rb") as f:
 		old_unicodes = pickle.load(f)
-	unicode_unchanged = (unicodes == old_unicodes)
+	unicode_unchanged = (unicodes.keys() == old_unicodes.keys())
 	update_other = False # if false, no need to extract others patterns again
 
 	for key, value in patterns.items():

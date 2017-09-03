@@ -26,7 +26,7 @@ def replace_all():
 
 	output_train_txt_file = "%s/training_text.replaced_unicode.p" % config.data_folder
 	output_test_txt_file = "%s/test_text.replaced_unicode.p" % config.data_folder
-	print("Saving replace text data...")
+	print("Saving replaced text data...")
 	# print("Saving replaced text data of the entire training set...")
 	with open(output_train_txt_file, "wb") as f:
 		pickle.dump(df_train_txt, f)
