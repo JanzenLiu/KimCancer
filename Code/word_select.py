@@ -102,7 +102,7 @@ if __name__ == '__main__':
         json.dump(common_words, output_file, indent=2)
     print 'complete extracting special words from training text'
 
-    with open('../Data/testing_text.processed.p') as text_file:
+    with open('../Data/test_text.processed.p') as text_file:
         text = pickle.load(text_file)
     assert len(text) == 3321
     print 'complete loading processed testing text'
