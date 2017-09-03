@@ -66,3 +66,8 @@ def load_combined_data(version="original"):
 	
 	df_combine = pd.concat((df_train, df_test), axis=0, ignore_index=True)
 	return df_combine, y_train, id_test
+
+def load_stratified_kfold(stratified_label=config.stratified_label):
+	with open("%s/stratifiedKFold.%s.p" % (config.data_folder, stratified_label), "rb") as f:
+		skf = pickle.load(f)
+	return skf
