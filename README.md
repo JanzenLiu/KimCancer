@@ -33,6 +33,10 @@ To reproduce the results, as well as the intermediate product, you need to:
 ### TODO
 
 - [ ] add feature counting occurences and unique occurences of specific patterns (listed in ./Code/Preprocess/pattern_dict.py).
+- [ ] add directory and file examination in kFold generating function.
+- [ ] extract TF-IDF and truncated TF-IDF features from text data.
+- [ ] extract word2vec features from text data.
+- [ ] extract physiological chemistry related features from variant data.
 
 ### Prerequisites
 
