@@ -24,7 +24,7 @@ To reproduce the results, as well as the intermediate product, you need to:
 
 ### Single Model Training
 
-* To be add...
+* To be added...
 
 ### Model Emsembling
 
