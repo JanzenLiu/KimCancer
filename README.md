@@ -8,7 +8,7 @@ To reproduce the results, as well as the intermediate product, you need to:
 
 * Download the zipped data file from the [competition data page][b], unzip them and move the extracted data files into ./Data/ (which should be created by yourself) Folder.
 * Run `cd Code/Preprocess/` and then `python3 run.py` to generate the preprocessed data.
-* Run `cd ../Code/Feat/` and then `python3 run.py` to extract additional features (i.e. feature engineering) and save them.
+* Run `cd ../Feat/` and then `python3 run.py` to extract additional features (i.e. feature engineering) and save them.
 * To be added...
 
 ### Text Preprocessing
