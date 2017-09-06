@@ -37,6 +37,11 @@ To reproduce the results, as well as the intermediate product, you need to:
 - [ ] extract TF-IDF and truncated TF-IDF features from text data.
 - [ ] extract word2vec features from text data.
 - [ ] extract physiological chemistry related features from variant data.
+- [ ] model to use: LogisticRegression (with different penalty terms, e.g. l1, l2)
+- [ ] model to use: DecisionTree
+- [ ] model to use: Random Forest
+- [ ] model to use: SVC (with different kernels)
+- [ ] model to use: LDA
 
 ### Prerequisites
 
