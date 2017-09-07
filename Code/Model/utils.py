@@ -7,7 +7,7 @@ def rescale(pred, inplace=False):
 	return pred / pred.sum(axis=1).reshape((-1,1))
 
 '''
-@Param:
+@param:
 y_true: true label of shape (n_samples,) or (n_samples, 1)
 y_pred: predicted probabilities for each class, which is of shape (n_samples, n_classes)
 '''
