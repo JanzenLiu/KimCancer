@@ -6,6 +6,11 @@ from param_config import config
 def rescale(pred, inplace=False):
 	return pred / pred.sum(axis=1).reshape((-1,1))
 
+'''
+@Param:
+y_true: true label of shape (n_samples,) or (n_samples, 1)
+y_pred: predicted probabilities for each class, which is of shape (n_samples, n_classes)
+'''
 def multiclass_logloss(y_true, y_pred):
 	if isinstance(y_true, pd.DataFrame):
 		y_true = y_true["Class"].values
