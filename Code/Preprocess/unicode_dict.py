@@ -3,6 +3,16 @@
 
 import re
 
+'''
+A dictionary indicating how to perform the replacement on some special Unicode characters.
+Each item consists of:
+	key: regular expression of the Unicode character
+	value: text used to substitude the Unicode character
+Note:
+	1. Each substitute was set to a single word for consistency, this can be modified if necessary.
+	2. Lowercase/Uppercase greek letters and latin letters with different accent are not differentiated,
+	which may be improved later. 
+'''
 unicodes = {
 	r"\u2013":"-",
 	r"\u2212":"?",

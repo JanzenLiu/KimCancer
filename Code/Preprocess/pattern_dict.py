@@ -4,8 +4,10 @@
 import re
 
 word_pattern = r"\b[A-Za-z]+\b"
-unicode_pattern = r"\\u[0-9a-fA-F]{4}" # to be verified
 
+############################################################################
+### speicial patterns to be extracted and removed from the original text ###
+############################################################################
 patterns = {
 	## parenthesis
 	"figure_parenthesis": r"\( ?[Ff][Ii][Gg](?:[Uu][Rr][Ee])? ?\.? ?(?:\w+, )*(?:\w+ and )?\w+ ?\)", # (fig 1), (fig. 1), (Fig. 1), (Figure 1), (Figure. 1), (Figure. 1A)
@@ -41,6 +43,9 @@ patterns = {
 	"url_http_plain": r"(?<![\(\[]])https?.+?(?=[ ,;\)])" # http://pymol.org, http://www.olympusfluoview.com/java/colocalization/index.html
 }
 
+###############################################################################
+### patterns to be extracted after the preceding patterns have been removed ###
+###############################################################################
 other_patterns = {
 	"other_parenthesis_pattern": r"\([^)]+\)", # (...)
 	"other_brackets_pattern": r"\[[^\]]+\]", # [...]

@@ -1,14 +1,9 @@
 import pandas as pd
 import pickle
+import os
 import sys; sys.path.append("../")
 from param_config import config
 from reader import load_extracted_text, load_original_variants
-
-from replace_text import replace_all
-replace_all()
-
-from extract_pattern import extract_all
-extract_all()
 
 def dump_processed_data():
 	df_train_txt, df_test_txt = load_extracted_text()
@@ -23,4 +18,11 @@ def dump_processed_data():
 	with open(config.processed_test_data_path, "wb") as f:
 		pickle.dump(df_test, f)
 
-dump_processed_data()
+if __name__ == "__main__":
+	cmd = "python3 replace_text.py"
+	os.system(cmd)
+
+	cmd = "python3 extract_pattern.py"
+	os.system(cmd)
+		
+	dump_processed_data()

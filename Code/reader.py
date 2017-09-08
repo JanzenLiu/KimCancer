@@ -5,6 +5,7 @@ import sys
 import os
 from param_config import config
 
+'''return original train and test text data'''
 def load_original_text():
 	df_train_txt = pd.read_csv(config.original_train_text_path, 
 		sep="\|\|", header=None, skiprows=1, names=["ID", "Text"], engine="python")
@@ -12,11 +13,13 @@ def load_original_text():
 		sep="\|\|", header=None, skiprows=1, names=["ID", "Text"], engine="python")
 	return df_train_txt, df_test_txt
 
+'''return original variants data'''
 def load_original_variants():
 	df_train_var = pd.read_csv(config.original_train_variant_path)
 	df_test_var = pd.read_csv(config.original_test_variant_path)
 	return df_train_var, df_test_var
 
+'''return last saved text data with special characters replaced'''
 def load_replaced_text():
 	replaced_train_text_path = "%s/training_text.replaced_unicode.p" % config.data_folder
 	replaced_test_text_path = "%s/test_text.replaced_unicode.p" % config.data_folder
@@ -31,6 +34,7 @@ def load_replaced_text():
 		df_test_txt = pickle.load(f)
 	return df_train_txt, df_test_txt
 
+'''return last saved text data with special patterns removed'''
 def load_extracted_text():
 	extracted_train_text_path = "%s/training_text.extracted_pattern.p" % config.data_folder
 	extracted_test_text_path = "%s/test_text.extracted_pattern.p" % config.data_folder
@@ -45,6 +49,7 @@ def load_extracted_text():
 		df_test_txt = pickle.load(f)
 	return df_train_txt, df_test_txt
 
+'''return last saved processed data, with text and variants merged'''
 def load_processed_data():
 	with open(config.processed_train_data_path, "rb") as f:
 		df_train = pickle.load(f)
@@ -52,29 +57,15 @@ def load_processed_data():
 		df_test = pickle.load(f)
 	return df_train, df_test
 
-def load_combined_data(version="original"):
-	if version == "replaced":
-		df_train_txt, df_test_txt = load_replaced_text()
-	elif version == "extracted":
-		df_train_txt, df_test_txt = load_extracted_text()
-	else:
-		if version != "original":
-			print("[Warning] Version not found, return original data")
-		df_train_txt, df_test_txt = load_original_text()
-
-	df_train_var, df_test_var = load_original_variants()
-
-	y_train = df_train_var["Class"]
-	id_test = df_test_var["ID"]
-	df_train = pd.merge(df_train_txt, df_train_var, how="left", on="ID").fillna("")
-	df_train = df_train.drop(["ID", "Class"], axis=1)
-	df_test = pd.merge(df_test_txt, df_test_var, how="left", on="ID").fillna("")
-	df_test = df_test.drop(["ID"], axis=1)
-	
-	df_combine = pd.concat((df_train, df_test), axis=0, ignore_index=True)
-	return df_combine, y_train, id_test
-
+'''
+@param: stratified_label: label used to generated the stratified kfold
+@return: StratifiedKFold indices for each run and fold
+'''
 def load_stratified_kfold(stratified_label=config.stratified_label):
-	with open("%s/stratifiedKFold.%s.p" % (config.data_folder, stratified_label), "rb") as f:
+	path = "%s/stratifiedKFold.%s.p" % (config.data_folder, stratified_label)
+	if not os.path.exists(path):
+		print("[Error] Dumped stratifiedKFold not found")
+		return "error"
+	with open(path, "rb") as f:
 		skf = pickle.load(f)
 	return skf

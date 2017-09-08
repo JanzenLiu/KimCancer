@@ -5,6 +5,15 @@ from reader import load_stratified_kfold
 
 skf = load_stratified_kfold()
 
+'''
+Saving specified feature to some paths. Given a feature:
+	- [feat_folder]/Run[run_no]/Fold[fold_no]/[train/valid].[feat_name].feat.p
+		for training/validation subset in #fold_no fold in #run_no run
+	- [feat_folder]/All/[train/test].[feat_name].feat.p for traing/test set
+@param:
+	df_train, df_test: dataframes for training and testing sets
+	feat_name: names of the feature to save
+'''
 def dump_feat(df_train, df_test, feat_name):
 	print("Dumping feature %s..." % feat_name)
 	## For cross-validation
@@ -28,6 +37,12 @@ def dump_feat(df_train, df_test, feat_name):
 	with open("%s/test.%s.feat.p" % (path, feat_name), "wb") as f:
 		pickle.dump(X_test, f)
 
+'''
+Saving specified features to some paths. See documentation above for details
+@param:
+	df_train, df_test: dataframes for training and testing sets
+	feat_names: names of feature to save
+'''
 def dump_feats(df_train, df_test, feat_names):
 	print("For cross-validation...")
 	for run in range(config.n_runs):
