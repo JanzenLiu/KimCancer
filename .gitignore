@@ -2,6 +2,7 @@ Pattern/dev/*
 Feat/dev/*
 Data/*
 Temp/*
+Word2Vec/*
 *.pyc
 *.pyo
 *.json

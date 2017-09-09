@@ -41,12 +41,12 @@ class ParamConfig:
 		self.pattern_cache_file = "%s/patterns.last_processed.p" % self.pattern_folder
 		self.unicode_cache_file = "%s/unicodes.last_processed.p" % self.data_folder
 
-		self.main_dictionary_path = '../External/350k_dictionary.txt'
-		self.suppliment_dict_path = '../External/10k_dictionary.txt'
-		self.special_words_train_savepath = '../Vocabulary/special_words.train.json'
-		self.special_words_test_savepath = '../Vocabulary/special_words.test.json'
-		self.common_words_train_savepath = '../Vocabulary/common_words.train.json'
-		self.common_words_test_savepath = '../Vocabulary/common_words.test.json'
+		self.main_dictionary_path = '../../External/350k_dictionary.txt'
+		self.suppliment_dict_path = '../../External/10k_dictionary.txt'
+		self.special_words_train_savepath = '../../Vocabulary/special_words.train.json'
+		self.special_words_test_savepath = '../../Vocabulary/special_words.test.json'
+		self.common_words_train_savepath = '../../Vocabulary/common_words.train.json'
+		self.common_words_test_savepath = '../../Vocabulary/common_words.test.json'
 
 		## nlp related
 		self.basic_tfidf_ngram_range = basic_tfidf_ngram_range
@@ -90,8 +90,8 @@ class ParamConfig:
 					os.makedirs(path)
 
 		## create folder for vocabulary
-		if not os.path.exists('../Vocabulary'):
-			os.makedirs('../Vocabulary')
+		if not os.path.exists('../../Vocabulary'):
+			os.makedirs('../../Vocabulary')
 
 ## initialize a param config
 config = ParamConfig(feat_folder="../../Feat/dev",

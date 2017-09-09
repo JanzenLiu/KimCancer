@@ -5,6 +5,7 @@ import os
 import re
 import pickle
 import json
+import sys; sys.path.append('../')
 from param_config import config
 
 # load vocabulary
@@ -83,12 +84,12 @@ if __name__ == '__main__':
     special_words = dict()
     common_words = dict()
 
-    with open('../Data/training_text.processed.p') as text_file:
+    with open('../../Data/train.processed.p', 'rb') as text_file:
         text = pickle.load(text_file)
-    print 'complete loading processed training text'
+    print('complete loading processed training text')
 
     for index, row in text.iterrows():
-        print 'processing %d' % index
+        print('processing %d' % index)
         # with open('../Temp/text0.processed.txt', 'w') as output:
         #     output.write(row['Text'])
         special, common = extract_special_words(row['Text'], vocabulary)
@@ -99,14 +100,14 @@ if __name__ == '__main__':
         json.dump(special_words, output_file, indent=2)
     with open(config.common_words_train_savepath, 'w') as output_file:
         json.dump(common_words, output_file, indent=2)
-    print 'complete extracting special words from training text'
+    print('complete extracting special words from training text')
 
-    with open('../Data/test_text.processed.p') as text_file:
+    with open('../../Data/test.processed.p', 'rb') as text_file:
         text = pickle.load(text_file)
-    print 'complete loading processed testing text'
+    print('complete loading processed testing text')
 
     for index, row in text.iterrows():
-        print 'processing %d' % index
+        print('processing %d' % index)
         # with open('../Temp/text0.processed.txt', 'w') as output:
         #     output.write(row['Text'])
         special, common = extract_special_words(row['Text'], vocabulary)
@@ -117,4 +118,4 @@ if __name__ == '__main__':
         json.dump(special_words, output_file, indent=2)
     with open(config.common_words_test_savepath, 'w') as output_file:
         json.dump(common_words, output_file, indent=2)
-    print 'complete extracting special words from testing text'
+    print('complete extracting special words from testing text')
