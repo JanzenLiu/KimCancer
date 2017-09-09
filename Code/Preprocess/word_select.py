@@ -23,7 +23,22 @@ def load_vocabulary():
             word = vocab_file.readline().strip()
     return vocab
 
-def extract_special_words(text, vocab):
+def extract_special_words(words, vocab):
+    special_words = set()
+    common_words = set()
+
+    for w in words:
+        if w.lower() not in vocab:
+            if s[-1] != 's' or (s[:-1].lower() not in vocab and \
+               s[:-2].lower() not in vocab):
+                special_words.add(w)
+                is_special = True
+        if not is_special:
+            common_words.add(w)
+
+    return special_words, common_words
+
+def extract_special_words_old(text, vocab):
     # split text into sentences
     text = ' '.join(text.split('. '))
     text = ' '.join(text.split(', '))
@@ -84,17 +99,18 @@ if __name__ == '__main__':
     special_words = dict()
     common_words = dict()
 
-    with open('../../Data/train.processed.p', 'rb') as text_file:
-        text = pickle.load(text_file)
+    with open('../../Data/train.tokens.json') as text_file:
+        text_dict = json.load(text_file)
     print('complete loading processed training text')
 
-    for index, row in text.iterrows():
-        print('processing %d' % index)
-        # with open('../Temp/text0.processed.txt', 'w') as output:
-        #     output.write(row['Text'])
-        special, common = extract_special_words(row['Text'], vocabulary)
-        special_words[row['ID']] = list(special)
-        common_words[row['ID']] = list(common)
+    for index in text_dict:
+        print('processing %s' % index)
+        words = set()
+        for sent in text_dict[index]:
+            words |= set(sent)
+        special, common = extract_special_words(words, vocabulary)
+        special_words[index] = list(special)
+        common_words[index] = list(common)
 
     with open(config.special_words_train_savepath, 'w') as output_file:
         json.dump(special_words, output_file, indent=2)
@@ -102,17 +118,18 @@ if __name__ == '__main__':
         json.dump(common_words, output_file, indent=2)
     print('complete extracting special words from training text')
 
-    with open('../../Data/test.processed.p', 'rb') as text_file:
-        text = pickle.load(text_file)
+    with open('../../Data/test.tokens.json') as text_file:
+        text_dict = json.load(text_file)
     print('complete loading processed testing text')
 
-    for index, row in text.iterrows():
-        print('processing %d' % index)
-        # with open('../Temp/text0.processed.txt', 'w') as output:
-        #     output.write(row['Text'])
-        special, common = extract_special_words(row['Text'], vocabulary)
-        special_words[row['ID']] = list(special)
-        common_words[row['ID']] = list(common)
+    for index in text_dict:
+        print('processing %s' % index)
+        words = set()
+        for sent in text_dict[index]:
+            words |= set(sent)
+        special, common = extract_special_words(words, vocabulary)
+        special_words[index] = list(special)
+        common_words[index] = list(common)
 
     with open(config.special_words_test_savepath, 'w') as output_file:
         json.dump(special_words, output_file, indent=2)
