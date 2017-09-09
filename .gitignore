@@ -4,6 +4,7 @@ Data/*
 Temp/*
 Word2Vec/*
 *.p
+*.csv
 *.pyc
 *.pyo
 *.json

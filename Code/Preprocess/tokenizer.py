@@ -40,3 +40,4 @@ if __name__ == '__main__':
 	dump_tokenized_json(df_train_txt, config.train_tokens_path)
 	dump_tokenized_json(df_test_txt, config.test_tokens_path)
 	
+
