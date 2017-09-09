@@ -31,7 +31,7 @@ class ParamConfig:
 		## path
 		self.data_folder = "../../Data"
 		self.external_data_folder = "../../External"
-		self.vocabulary_foler = "../../Vocabulary"
+		self.vocabulary_folder = "../../Vocabulary"
 		self.feat_folder = feat_folder # directory to store processed feature data
 		self.pattern_folder = pattern_folder # directory to store extracted subtext from text using specific patterns
 		self.original_train_text_path = "%s/training_text" % self.data_folder
@@ -49,12 +49,12 @@ class ParamConfig:
 		self.main_dictionary_path = '%s/350k_dictionary.txt' % self.external_data_folder
 		self.suppliment_dictionary_path = '%s/10k_dictionary.txt' % self.external_data_folder
 		self.bio_corpus_path = "%s/bioCorpus_5000.txt" % self.external_data_folder
-		self.special_words_train_savepath = '%s/special_words.train.json' % self.vocabulary_foler
-		self.special_words_test_savepath = '%s/special_words.test.json' % self.vocabulary_foler
-		self.common_words_train_savepath = '%s/common_words.train.json' % self.vocabulary_foler
-		self.common_words_test_savepath = '%s/common_words.test.json' % self.vocabulary_foler
-		self.unique_special_words_path = "%s/all.special_words.txt" % self.vocabulary_foler
-		self.unique_common_words_path = "%s/all.common_words.txt" % self.vocabulary_foler
+		self.special_words_train_savepath = '%s/special_words.train.json' % self.vocabulary_folder
+		self.special_words_test_savepath = '%s/special_words.test.json' % self.vocabulary_folder
+		self.common_words_train_savepath = '%s/common_words.train.json' % self.vocabulary_folder
+		self.common_words_test_savepath = '%s/common_words.test.json' % self.vocabulary_folder
+		self.unique_special_words_path = "%s/all.special_words.txt" % self.vocabulary_folder
+		self.unique_common_words_path = "%s/all.common_words.txt" % self.vocabulary_folder
 
 		## nlp related
 		self.basic_tfidf_ngram_range = basic_tfidf_ngram_range
@@ -98,8 +98,8 @@ class ParamConfig:
 					os.makedirs(path)
 
 		## create folder for vocabulary
-		if not os.path.exists(self.vocabulary_foler):
-			os.makedirs(self.vocabulary_foler)
+		if not os.path.exists(self.vocabulary_folder):
+			os.makedirs(self.vocabulary_folder)
 
 ## initialize a param config
 config = ParamConfig(feat_folder="../../Feat/dev",
