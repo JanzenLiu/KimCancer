@@ -19,7 +19,7 @@ class Debug():
 	def __init__(self, doc, df, tokens_json, vocab):
 		self.doc = doc
 		self.df = df
-		self.tokens_json = tokens_json,
+		self.tokens_json = tokens_json
 		self.vocab = vocab
 
 

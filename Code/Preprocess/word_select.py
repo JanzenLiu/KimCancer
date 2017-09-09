@@ -24,8 +24,8 @@ def extract_special_words(words, vocab):
 
     for w in words:
         if w.lower() not in vocab:
-            if s[-1] != 's' or (s[:-1].lower() not in vocab and \
-               s[:-2].lower() not in vocab):
+            if w[-1] != 's' or (w[:-1].lower() not in vocab and \
+               w[:-2].lower() not in vocab):
                 special_words.add(w)
                 continue
         common_words.add(w)
