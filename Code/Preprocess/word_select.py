@@ -40,15 +40,15 @@ def extract_special_words_from_docs(text_dict, vocab):
     counter = 0
 
     ## extract common and special words for each document
-    for index in text_dict: 
+    for key, value in text_dict.items(): 
         if(counter % step == 0):
             print('processing #%d' % counter)
         words = set() # to store unique words of each document
-        for sent in text_dict[index]:
+        for sent in value:
             words |= set(sent)
         special, common = extract_special_words(words, vocab)
-        special_words[index] = list(special)
-        common_words[index] = list(common)
+        special_words[key] = list(special)
+        common_words[key] = list(common)
         counter += 1
     print('done.')
     return special_words, common_words
