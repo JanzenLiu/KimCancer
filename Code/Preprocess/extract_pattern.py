@@ -131,5 +131,5 @@ def extract_and_remove_all(df_train, df_test, pats, other_pats=other_patterns):
 		pickle.dump(df_test, f)
 
 if __name__ == "__main__":
-	df_train_txt, df_test_txt = load_replaced_text()
+	df_train_txt, df_test_txt = load_original_text()
 	extract_and_remove_all(df_train_txt, df_test_txt, patterns, other_patterns)
