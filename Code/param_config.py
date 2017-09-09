@@ -36,13 +36,15 @@ class ParamConfig:
 		self.original_train_variant_path = "%s/training_variants" % self.data_folder
 		self.original_test_text_path = "%s/test_text" % self.data_folder
 		self.original_test_variant_path = "%s/test_variants" % self.data_folder
+		self.debug_data_path = "%s/debug.p" % self.data_folder
 		self.processed_train_data_path = "%s/train.processed.p" % self.data_folder
 		self.processed_test_data_path = "%s/test.processed.p" % self.data_folder
 		self.pattern_cache_file = "%s/patterns.last_processed.p" % self.pattern_folder
 		self.unicode_cache_file = "%s/unicodes.last_processed.p" % self.data_folder
 
 		self.main_dictionary_path = '../../External/350k_dictionary.txt'
-		self.suppliment_dict_path = '../../External/10k_dictionary.txt'
+		self.suppliment_dictionary_path = '../../External/10k_dictionary.txt'
+		self.bio_corpus_path
 		self.special_words_train_savepath = '../../Vocabulary/special_words.train.json'
 		self.special_words_test_savepath = '../../Vocabulary/special_words.test.json'
 		self.common_words_train_savepath = '../../Vocabulary/common_words.train.json'
