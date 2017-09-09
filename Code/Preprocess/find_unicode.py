@@ -18,7 +18,7 @@ def special_char_set_lct(text):
 def special_char_set_lkc(text):
 	return set(re.findall(r'[\u00ff-\uffff]', text))
 
-if __name__ == "main":
+if __name__ == "__main__":
 	df_train_txt, df_test_txt = load_original_text()
 	train_special_chars = set()
 	test_special_chars = set()
