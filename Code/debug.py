@@ -12,11 +12,14 @@ sys.path.append('../Model/')
 from param_config import config
 from reader import *
 from tools import *
+from word_select import *
+from tokenizer import *
 
 class Debug():
-	def __init__(self, doc, df, vocab):
+	def __init__(self, doc, df, tokens_json, vocab):
 		self.doc = doc
 		self.df = df
+		self.tokens_json = tokens_json,
 		self.vocab = vocab
 
 
@@ -46,6 +49,12 @@ if not os.path.exists(config.debug_data_path):
 	for i in range(1, 1+config.n_classes):
 		df_debug = df_debug.append(df_train[df_train['Class']==i].iloc[0], ignore_index=True)
 	df_debug = df_debug.append(df_debug_test, ignore_index=True)
+
+	###################
+	### text object ###
+	###################
+	tokenize_df(df_debug)
+	text_obj = seriesToJson(df_debug['tokenized_text'], str)
 
 	###########################
 	### shrinked vocabulary ###
