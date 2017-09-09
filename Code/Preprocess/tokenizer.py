@@ -36,6 +36,6 @@ def dump_tokenized_pickle(df, path):
 
 if __name__ == '__main__':
 	df_train_txt, df_test_txt = load_original_text()
-	dump_tokenized_csv(df_train_txt, '../../Data/train.tokens.csv')
-	dump_tokenized_csv(df_test_txt, '../../Data/test.tokens.csv')
+	dump_tokenized_json(df_train_txt, '../../Data/train.tokens.json')
+	dump_tokenized_json(df_test_txt, '../../Data/test.tokens.json')
 	

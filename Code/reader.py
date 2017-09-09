@@ -20,6 +20,15 @@ def load_original_variants():
 	df_test_var = pd.read_csv(config.original_test_variant_path)
 	return df_train_var, df_test_var
 
+''' return original data'''
+def load_original_data():
+	df_train_txt, df_test_txt = load_original_text()
+	df_train_var, df_test_var = load_original_variants()
+	df_train = pd.merge(df_train_txt, df_train_var, how="left", on="ID").fillna("")
+	df_test = pd.merge(df_test_txt, df_test_var, how="left", on="ID").fillna("")
+	return df_train, df_test
+
+
 '''return last saved text data with special characters replaced'''
 def load_replaced_text():
 	replaced_train_text_path = "%s/training_text.replaced_unicode.p" % config.data_folder
