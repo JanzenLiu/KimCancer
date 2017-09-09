@@ -129,7 +129,7 @@ if __name__ == '__main__':
     with open(config.train_tokens_path) as text_file:
         text_dict = json.load(text_file)
     print('complete loading processed training text')
-    special_words, common_words = extract_special_words_from_docs(text_dict)
+    special_words, common_words = extract_special_words_from_docs(text_dict, vocabulary)
 
     ## save common and special words extracted
     with open(config.special_words_train_savepath, 'w') as output_file:
@@ -149,7 +149,7 @@ if __name__ == '__main__':
     with open('../../Data/test.tokens.json') as text_file:
         text_dict = json.load(text_file)
     print('complete loading processed testing text')
-    special_words, common_words = extract_special_words_from_docs(text_dict)
+    special_words, common_words = extract_special_words_from_docs(text_dict, vocabulary)
 
     ## save common and speical words extracted
     with open(config.special_words_test_savepath, 'w') as output_file:
