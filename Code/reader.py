@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import pickle
+import json
 import sys
 import os
 from param_config import config
@@ -56,6 +57,17 @@ def load_processed_data():
 	with open(config.processed_test_data_path, "rb") as f:
 		df_test = pickle.load(f)
 	return df_train, df_test
+
+'''return tokens extracted from text data'''
+def load_tokens():
+	train_tokens_path = "%s/train.tokens.p" % config.data_folder
+	test_tokens_path = "%s/test.tokens.p" % config.data_folder
+	with open(train_tokens_path, "r") as f:
+		train_tokens = json.load(f)
+	with open(test_tokens_path, "r") as f:
+		test_tokens = json.load(f)
+	return train_tokens, test_tokens
+
 
 '''
 @param: stratified_label: label used to generated the stratified kfold
