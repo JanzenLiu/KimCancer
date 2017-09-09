@@ -10,12 +10,13 @@ def tokenize(df):
 		for sent in nltk.sent_tokenize(row['Text']):
 			sents.append(nltk.word_tokenize(sent))
 		docs[str(index)] = sents
-		break
 	return docs
 
 if __name__ == '__main__':
 	df_train, df_test = load_processed_data()
 	docs_train = tokenize(df_train)
 	docs_test = tokenize(df_test)
-	with open('../../Data/tokens_train.json', 'w') as f:
+	with open('../../Data/train.tokens.json', 'w') as f:
 		json.dump(docs_train, f, indent=2)
+	with open('../../Data/test.tokens.json', 'w') as f:
+		json.dump(docs_test, f, indent=2)
