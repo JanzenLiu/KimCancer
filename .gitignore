@@ -3,6 +3,7 @@ Feat/dev/*
 Data/*
 Temp/*
 Word2Vec/*
+*.p
 *.pyc
 *.pyo
 *.json

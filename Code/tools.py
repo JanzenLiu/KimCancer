@@ -26,3 +26,9 @@ def seriesToJson(series, index_type=int):
 	for index, value in series.iteritems():
 		obj[index_type(index)] = value
 	return obj
+
+
+def save_words(words, path):
+	with open(path, "w") as f:
+		for word in words:
+			f.write("%s\n" % word)

@@ -8,9 +8,16 @@ import json
 import sys; sys.path.append('../')
 from param_config import config
 from reader import load_vocabulary
-# load vocabulary
+from tools import save_words
 
-
+'''
+Extract speical words and common words from a word list
+@param:
+    words: a list of words
+    vocab: a vocabulary of words indicating common words
+@return:
+    a set of special words and a set of common words
+'''
 def extract_special_words(words, vocab):
     special_words = set()
     common_words = set()
@@ -26,6 +33,35 @@ def extract_special_words(words, vocab):
 
     return special_words, common_words
 
+
+def extract_special_words_from_docs(text_dict, vocab):
+    special_words = dict()
+    common_words = dict()
+    step = 200
+    counter = 0
+
+    ## extract common and special words for each document
+    for index in text_dict: 
+        if(counter % step == 0):
+            print('processing #%d' % counter)
+        words = set() # to store unique words of each document
+        for sent in text_dict[index]:
+            words |= set(sent)
+        special, common = extract_special_words(words, vocab)
+        special_words[index] = list(special)
+        common_words[index] = list(common)
+        counter += 1
+    print('done.')
+    return special_words, common_words
+
+def get_unique_words(words_dict):
+    unique_words = set()
+    for words in words_dict.values():
+        unique_words |= set(words)
+    return unique_words
+
+
+'''Outdated function to extract special and common words'''
 def extract_special_words_old(text, vocab):
     # split text into sentences
     text = ' '.join(text.split('. '))
@@ -84,43 +120,51 @@ def extract_special_words_old(text, vocab):
 
 if __name__ == '__main__':
     vocabulary = load_vocabulary()
-    special_words = dict()
-    common_words = dict()
+    unique_special_words = set()
+    unique_common_words = set()
 
-    with open('../../Data/train.tokens.json') as text_file:
+    #########################
+    ##### Training Data #####
+    #########################
+    ## load tokens extracted from train text
+    with open(config.train_tokens_path) as text_file:
         text_dict = json.load(text_file)
     print('complete loading processed training text')
+    special_words, common_words = extract_special_words_from_docs(text_dict)
 
-    for index in text_dict:
-        print('processing %s' % index)
-        words = set()
-        for sent in text_dict[index]:
-            words |= set(sent)
-        special, common = extract_special_words(words, vocabulary)
-        special_words[index] = list(special)
-        common_words[index] = list(common)
-
+    ## save common and special words extracted
     with open(config.special_words_train_savepath, 'w') as output_file:
         json.dump(special_words, output_file, indent=2)
     with open(config.common_words_train_savepath, 'w') as output_file:
         json.dump(common_words, output_file, indent=2)
     print('complete extracting special words from training text')
 
+    ## update unique special and common words
+    unique_special_words.update(get_unique_words(special_words))
+    unique_common_words.update(get_unique_words(common_words))
+
+    ########################
+    ##### Testing Data #####
+    ########################
+    ## load tokens extracted from test text
     with open('../../Data/test.tokens.json') as text_file:
         text_dict = json.load(text_file)
     print('complete loading processed testing text')
+    special_words, common_words = extract_special_words_from_docs(text_dict)
 
-    for index in text_dict:
-        print('processing %s' % index)
-        words = set()
-        for sent in text_dict[index]:
-            words |= set(sent)
-        special, common = extract_special_words(words, vocabulary)
-        special_words[index] = list(special)
-        common_words[index] = list(common)
-
+    ## save common and speical words extracted
     with open(config.special_words_test_savepath, 'w') as output_file:
         json.dump(special_words, output_file, indent=2)
     with open(config.common_words_test_savepath, 'w') as output_file:
         json.dump(common_words, output_file, indent=2)
     print('complete extracting special words from testing text')
+
+    ## update unique special and common words
+    unique_special_words.update(get_unique_words(special_words))
+    unique_common_words.update(get_unique_words(common_words))
+
+    ###################
+    ##### For All #####
+    ###################
+    save_words(unique_special_words, config.unique_special_words_path)
+    save_words(unique_common_words, config.unique_common_words_path)

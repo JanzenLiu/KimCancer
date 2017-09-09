@@ -4,6 +4,7 @@ import pickle
 import numpy as np
 import pandas as pd
 import sys; sys.path.append('../')
+from param_config import config
 from reader import load_processed_data, load_original_text
 from tools import seriesToJson
 
@@ -36,6 +37,6 @@ def dump_tokenized_pickle(df, path):
 
 if __name__ == '__main__':
 	df_train_txt, df_test_txt = load_original_text()
-	dump_tokenized_json(df_train_txt, '../../Data/train.tokens.json')
-	dump_tokenized_json(df_test_txt, '../../Data/test.tokens.json')
+	dump_tokenized_json(df_train_txt, config.train_tokens_path)
+	dump_tokenized_json(df_test_txt, config.test_tokens_path)
 	

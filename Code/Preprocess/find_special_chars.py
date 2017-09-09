@@ -1,6 +1,8 @@
 import re
 import sys; sys.path.append('../')
+from param_config import config
 from reader import load_original_text
+from tools import save_words
 
 normal_chars = [',', '.', '?', '!', ':', ';', 
 				'(', ')', '[', ']', '{', '}',
@@ -24,14 +26,12 @@ if __name__ == "__main__":
 	test_special_chars = set()
 
 	for index, row in df_train_txt.iterrows():
-		# train_special_chars.update(special_char_set(row['Text']))
+		# train_special_chars_lct.update(special_char_set(row['Text']))
 		train_special_chars.update(special_char_set_lkc(row['Text']))
 	for index, row in df_test_txt.iterrows():
-		# test_special_chars.update(special_char_set(row['Text']))
+		# test_special_chars_lct.update(special_char_set(row['Text']))
 		test_special_chars.update(special_char_set_lkc(row['Text']))
 	special_chars = train_special_chars.copy()
 	special_chars.update(test_special_chars)
 
-	with open('special_chars', 'w') as f:
-		for char in special_chars:
-			f.write(char + '\n')
+	save_words(special_chars, config.special_characters_path)

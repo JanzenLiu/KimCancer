@@ -30,6 +30,8 @@ class ParamConfig:
 
 		## path
 		self.data_folder = "../../Data"
+		self.external_data_folder = "../../External"
+		self.vocabulary_foler = "../../Vocabulary"
 		self.feat_folder = feat_folder # directory to store processed feature data
 		self.pattern_folder = pattern_folder # directory to store extracted subtext from text using specific patterns
 		self.original_train_text_path = "%s/training_text" % self.data_folder
@@ -37,18 +39,22 @@ class ParamConfig:
 		self.original_test_text_path = "%s/test_text" % self.data_folder
 		self.original_test_variant_path = "%s/test_variants" % self.data_folder
 		self.debug_data_path = "%s/debug.p" % self.data_folder
+		self.special_characters_path = "%s/special_characters.txt" % self.vocabulary_folder
+		self.train_tokens_path = "%s/train.tokens.json" % self.data_folder
+		self.test_tokens_path = "%s/test.tokens.json" % self.data_folder
 		self.processed_train_data_path = "%s/train.processed.p" % self.data_folder
 		self.processed_test_data_path = "%s/test.processed.p" % self.data_folder
 		self.pattern_cache_file = "%s/patterns.last_processed.p" % self.pattern_folder
 		self.unicode_cache_file = "%s/unicodes.last_processed.p" % self.data_folder
-
-		self.main_dictionary_path = '../../External/350k_dictionary.txt'
-		self.suppliment_dictionary_path = '../../External/10k_dictionary.txt'
-		self.bio_corpus_path
-		self.special_words_train_savepath = '../../Vocabulary/special_words.train.json'
-		self.special_words_test_savepath = '../../Vocabulary/special_words.test.json'
-		self.common_words_train_savepath = '../../Vocabulary/common_words.train.json'
-		self.common_words_test_savepath = '../../Vocabulary/common_words.test.json'
+		self.main_dictionary_path = '%s/350k_dictionary.txt' % self.external_data_folder
+		self.suppliment_dictionary_path = '%s/10k_dictionary.txt' % self.external_data_folder
+		self.bio_corpus_path = "%s/bioCorpus_5000.txt" % self.external_data_folder
+		self.special_words_train_savepath = '%s/special_words.train.json' % self.vocabulary_foler
+		self.special_words_test_savepath = '%s/special_words.test.json' % self.vocabulary_foler
+		self.common_words_train_savepath = '%s/common_words.train.json' % self.vocabulary_foler
+		self.common_words_test_savepath = '%s/common_words.test.json' % self.vocabulary_foler
+		self.unique_special_words_path = "%s/all.special_words.txt" % self.vocabulary_foler
+		self.unique_common_words_path = "%s/all.common_words.txt" % self.vocabulary_foler
 
 		## nlp related
 		self.basic_tfidf_ngram_range = basic_tfidf_ngram_range
@@ -92,8 +98,8 @@ class ParamConfig:
 					os.makedirs(path)
 
 		## create folder for vocabulary
-		if not os.path.exists('../../Vocabulary'):
-			os.makedirs('../../Vocabulary')
+		if not os.path.exists(self.vocabulary_foler):
+			os.makedirs(self.vocabulary_foler)
 
 ## initialize a param config
 config = ParamConfig(feat_folder="../../Feat/dev",
