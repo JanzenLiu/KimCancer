@@ -63,7 +63,7 @@ if not os.path.exists(config.debug_data_path):
 	vocab_debug = vocab_real[:1000] + vocab_real[-1000:]
 
 	### initiate debug instance
-	debug = Debug(doc=doc, df=df_debug, vocab=vocab_debug)
+	debug = Debug(doc=doc, df=df_debug, tokens_json=text_obj, vocab=vocab_debug)
 	with open(config.debug_data_path, "wb") as f:
 		pickle.dump(debug, f)
 
