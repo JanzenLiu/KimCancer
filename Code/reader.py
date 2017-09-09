@@ -77,6 +77,21 @@ def load_tokens():
 		test_tokens = json.load(f)
 	return train_tokens, test_tokens
 
+'''return vocabulary of common words'''
+def load_vocabulary():
+    vocab = set()
+    with open(config.main_dictionary_path) as vocab_file:
+        word = vocab_file.readline().strip()
+        while word != '':
+            vocab.add(word)
+            word = vocab_file.readline().strip()
+    with open(config.suppliment_dictionary_path) as vocab_file:
+        word = vocab_file.readline().strip()
+        while word != '':
+            vocab.add(word)
+            word = vocab_file.readline().strip()
+    return vocab
+
 
 '''
 @param: stratified_label: label used to generated the stratified kfold

@@ -43,7 +43,8 @@ class ParamConfig:
 		self.unicode_cache_file = "%s/unicodes.last_processed.p" % self.data_folder
 
 		self.main_dictionary_path = '../../External/350k_dictionary.txt'
-		self.suppliment_dict_path = '../../External/10k_dictionary.txt'
+		self.suppliment_dictionary_path = '../../External/10k_dictionary.txt'
+		self.bio_corpus_path
 		self.special_words_train_savepath = '../../Vocabulary/special_words.train.json'
 		self.special_words_test_savepath = '../../Vocabulary/special_words.test.json'
 		self.common_words_train_savepath = '../../Vocabulary/common_words.train.json'

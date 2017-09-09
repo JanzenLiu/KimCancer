@@ -19,7 +19,7 @@ def tokenize_df(df):
 def dump_tokenized_json(df, path):
 	if not 'tokenized_text' in df.columns:
 		tokenize_df(df)
-	tokens_json = seriesToJson(df['tokenized_text'])
+	tokens_json = seriesToJson(df['tokenized_text'], str)
 	with open(path, 'w') as f:
 		json.dump(tokens_json, f, indent=2)
 

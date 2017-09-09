@@ -7,21 +7,9 @@ import pickle
 import json
 import sys; sys.path.append('../')
 from param_config import config
-
+from reader import load_vocabulary
 # load vocabulary
-def load_vocabulary():
-    vocab = set()
-    with open(config.main_dictionary_path) as vocab_file:
-        word = vocab_file.readline().strip()
-        while word != '':
-            vocab.add(word)
-            word = vocab_file.readline().strip()
-    with open(config.suppliment_dict_path) as vocab_file:
-        word = vocab_file.readline().strip()
-        while word != '':
-            vocab.add(word)
-            word = vocab_file.readline().strip()
-    return vocab
+
 
 def extract_special_words(words, vocab):
     special_words = set()
