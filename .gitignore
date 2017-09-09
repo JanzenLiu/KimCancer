@@ -6,3 +6,5 @@ Word2Vec/*
 *.pyc
 *.pyo
 *.json
+*.swp
+
