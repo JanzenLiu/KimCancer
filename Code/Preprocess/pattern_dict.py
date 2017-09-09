@@ -1,13 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
-import re
-
-word_pattern = r"\b[A-Za-z]+\b"
+token_pattern = r"\b\w\w+\b"
 
 ############################################################################
 ### speicial patterns to be extracted and removed from the original text ###
 ############################################################################
+
+
+import re
 patterns = {
 	## parenthesis
 	"figure_parenthesis": r"\( ?[Ff][Ii][Gg](?:[Uu][Rr][Ee])? ?\.? ?(?:\w+, )*(?:\w+ and )?\w+ ?\)", # (fig 1), (fig. 1), (Fig. 1), (Figure 1), (Figure. 1), (Figure. 1A)

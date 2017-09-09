@@ -33,6 +33,8 @@ To reproduce the results, as well as the intermediate product, you need to:
 ### TODO
 
 - [ ] refactor codes: split Preprocess part to EDA(Explorative Data Analysis).
+- [x] extract special characters from the original text
+- [x] extract common and speical words(tokens) from the original text
 - [ ] accelerate gensim Word2Vec using cython.
 - [ ] add feature counting occurences and unique occurences of specific patterns (listed in ./Code/Preprocess/pattern_dict.py).
 - [x] add directory and file examination in kFold generating function.
