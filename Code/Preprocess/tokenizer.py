@@ -1,4 +1,5 @@
 import nltk
+import json
 import sys; sys.path.append('../')
 from reader import load_processed_data
 
@@ -17,4 +18,4 @@ if __name__ == '__main__':
 	docs_train = tokenize(df_train)
 	docs_test = tokenize(df_test)
 	with open('../../Data/tokens_train.json', 'w') as f:
-		json.dump(f, docs_train, indent=2)
+		json.dump(docs_train, f, indent=2)
