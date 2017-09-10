@@ -72,8 +72,8 @@ def load_tokens(version="original"):
 	if version not in ["original", "no_pattern"]:
 		print("[Error] version %s not found" % version)
 
-	train_tokens_path = "%s/train.%s.tokens.p" % (config.data_folder, version)
-	test_tokens_path = "%s/test.%s.tokens.p" % (config.data_folder, version)
+	train_tokens_path = "%s/train.%s.tokens.json" % (config.data_folder, version)
+	test_tokens_path = "%s/test.%s.tokens.json" % (config.data_folder, version)
 	with open(train_tokens_path, "r") as f:
 		train_tokens = json.load(f)
 	with open(test_tokens_path, "r") as f:
