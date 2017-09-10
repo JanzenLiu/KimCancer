@@ -32,18 +32,19 @@ To reproduce the results, as well as the intermediate product, you need to:
 
 ### TODO
 
-- [ ] refactor codes: split Preprocess part to EDA(Explorative Data Analysis).
-- [ ] refactor codes: split loading file, dumping file, converting data parts different modules.
-- [ ] extract trival tokens out from tokenized data (e.g. punctuation marks).
+- [x] refactor codes: split Preprocess part to EDA(Explorative Data Analysis).
+- [x] refactor codes: split loading file, dumping file, converting data parts to different modules.
 - [ ] add code spec.
 - [x] extract special characters from the original text.
 - [x] extract common and speical words(tokens) from the original text.
-- [ ] get unique common and special words.
+- [x] get unique common and special words.
+- [ ] observe others patterns and replenish pattern dictionary
+- [ ] get unique common and special words after extracting special patterns
 - [ ] get common and special words counter for each document
 - [ ] accelerate gensim Word2Vec using cython.
 - [ ] add feature counting occurences and unique occurences of specific patterns (listed in ./Code/Preprocess/pattern_dict.py).
 - [x] add directory and file examination in kFold generating function.
-- [ ] one-hot encode Gene.
+- [x] one-hot encode Gene.
 - [ ] extract physiological chemistry related features from variant data (i.e. encode Variation).
 - [ ] extract basic text-concerning counting features (e.g. digit count, word count , sentence count...).
 - [ ] extract TF-IDF and truncated TF-IDF features from text data.

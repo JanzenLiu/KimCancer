@@ -1,5 +1,5 @@
 import os
-import sys; sys.path.append("../")
+import sys; sys.path.append("../"); sys.path.append("../")
 from reader import load_stratified_kfold
 from param_config import config
 

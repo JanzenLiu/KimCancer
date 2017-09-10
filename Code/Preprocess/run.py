@@ -1,7 +1,7 @@
 import pandas as pd
 import pickle
 import os
-import sys; sys.path.append("../")
+import sys; sys.path.append("../"); sys.path.append("../Helper/")
 from param_config import config
 from reader import load_extracted_text, load_original_variants
 

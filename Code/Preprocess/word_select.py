@@ -5,10 +5,10 @@ import os
 import re
 import pickle
 import json
-import sys; sys.path.append('../')
+import sys; sys.path.append('../'); sys.path.append("../Helper/")
 from param_config import config
 from reader import load_vocabulary
-from tools import save_words
+from writer import dump_words
 
 '''
 Extract speical words and common words from a word list
@@ -165,5 +165,5 @@ if __name__ == '__main__':
     ###################
     ##### For All #####
     ###################
-    save_words(unique_special_words, config.unique_special_words_path)
-    save_words(unique_common_words, config.unique_common_words_path)
+    dump_words(unique_special_words, config.unique_special_words_path, "saving unique special words...")
+    dump_words(unique_common_words, config.unique_common_words_path, "saving unique common words...")

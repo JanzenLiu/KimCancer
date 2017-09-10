@@ -6,7 +6,7 @@ import pandas as pd
 import re
 import json
 import os
-import sys; sys.path.append("../")
+import sys; sys.path.append("../"); sys.path.append("../Helper/")
 import pickle
 from collections import Counter
 from param_config import config
@@ -34,6 +34,7 @@ def extract_pattern(pattern, name, df_train, df_test, path):
 	with open(filename, 'w') as f:
 		json.dump(res_test, f, indent=2)
 
+
 '''
 Remove text segment matching a specified pattern
 @param
@@ -48,29 +49,27 @@ def remove_pattern(pattern, dfs, name=""):
 		for index, row in df.iterrows():
 			df.set_value(index, 'Text', re.sub(pattern, "", row['Text'], re.UNICODE))
 
-'''
-1. Counting occurence(s) of a pattern(s) in text data
-2. Save the frequencies of different content calculated to path specified inside the function
-3. This function is initially designed to count frequencies for special unicode characters
-@param:
-	df_train, df_test: dataframes with a "Text" column to count occurence(s) of the pattern on.
-	pattern: pattern (which is supposed to match with different content) to match content for counting
-	name: name of the pattern, used to save the result
-'''
-def extract_unicode_freq(df_train, df_test, pattern, name):
-	print("Extracting frequencies of unicode pattern...")
+
+'''dicarded function'''
+def extract_speical_chars_freq(df_train, df_test):
+	print("Extracting frequencies of special characters...")
 	counter_train = Counter()
 	for index, row in df_train.iterrows():
-		counter_train += Counter(re.findall(pattern, row['Text'], re.UNICODE))
+		counter_train += Counter(re.findall(r'[\u00ff-\uffff]', row['Text'], re.UNICODE))
 	counter_test = Counter()
 	for index, row in df_test.iterrows():
-		counter_test += Counter(re.findall(pattern, row['Text'], re.UNICODE))
+		counter_test += Counter(re.findall(r'[\u00ff-\uffff]', row['Text'], re.UNICODE))
 	counter_all = counter_train + counter_test
-	output_freq_file = "%s/%s.freq" % (config.data_folder, name)
-	with open(output_freq_file, "w"):
-		f.write("unicode,occurence" + os.linesep)
-		for key, value in counter_all.most_common():
-			f.write("%s,%d"%(key,value) + os.linesep)
+
+	df = pd.DataFrame(columns=["character", "hex", "count"])
+	for index,(char, count) in enumerate(counter_all.most_common()):
+		df.loc[index, "character"] = char
+		df.loc[index, "hex"] = hex(ord(char))
+		df.loc[index, "count"] = count
+
+	path = "%s/all.special_chars.freq.csv" % (config.vocabulary_folder)
+	df.to_csv(path, index=False)
+
 
 '''
 1. Perform extraction and removal of all patterns specified in pattern_dict.py
@@ -81,29 +80,13 @@ def extract_unicode_freq(df_train, df_test, pattern, name):
 	other_pats: patterns to extract after pats were removed from the text
 '''
 def extract_and_remove_all(df_train, df_test, pats, other_pats=other_patterns):
-	## load cached patterns
-	with open(config.pattern_cache_file, "rb") as f:
-		old_patterns = pickle.load(f)
-	update_other = False # flag to determine whether to extract others patterns again
-
-	output_path = "%s/Raw" % config.pattern_folder
+	output_path = "%s/dev" % config.pattern_folder
 	if not os.path.exists(output_path):
 		os.makedirs(output_path)
 
 	## extract patterns
 	for key, value in pats.items():
-		# skip current pattern if it hasn't changed from the cache
-		# little bug：the pattern will also be skipped even though the upstream preprocessor was changed
-		pattern_unchanged = (old_patterns.get(key) == value)
-		if pattern_unchanged:
-			print("Skip extracting pattern %s, since it hasn't changed" % key)
-			continue
-		update_other = True
 		extract_pattern(value, key, df_train, df_test, output_path)
-		print("Updating pattern %s in cache..." % key)
-		old_patterns[key] = value
-		with open(config.pattern_cache_file, "wb") as f:
-			pickle.dump(old_patterns, f)
 
 	## remove patterns
 	for key, value in pats.items():
@@ -111,24 +94,15 @@ def extract_and_remove_all(df_train, df_test, pats, other_pats=other_patterns):
 
 	## extract others patterns
 	for key, value in other_pats.items():
-		pattern_unchanged = (old_patterns.get(key) == value)
-		if (not update_other) and pattern_unchanged:
-			print("Skip extracting pattern %s, since it hasn't changed" % key)
-			continue
 		extract_pattern(value, key, df_train, df_test, output_path)
-		if not pattern_unchanged:
-			print("Updating pattern %s in cache..." % key)
-			old_patterns[key] = value
-			with open(config.pattern_cache_file, "wb") as f:
-				pickle.dump(old_patterns, f)
 
-	output_train_txt_file = "%s/training_text.removed_pattern.p" % config.data_folder
-	output_test_txt_file = "%s/test_text.removed_pattern.p" % config.data_folder
-	print("Saving text with speicial patterns replaced...")
+	output_train_txt_file = "%s/training_text.no_pattern.p" % config.data_folder
+	output_test_txt_file = "%s/test_text.no_pattern.p" % config.data_folder
+	print("Saving text with speicial patterns removed...")
 	with open(output_train_txt_file, "wb") as f:
-		pickle.dump(df_train, f)
+		pickle.dump(df_train['Text'].values, f)
 	with open(output_test_txt_file, "wb") as f:
-		pickle.dump(df_test, f)
+		pickle.dump(df_test['Text'].values, f)
 
 if __name__ == "__main__":
 	df_train_txt, df_test_txt = load_original_text()

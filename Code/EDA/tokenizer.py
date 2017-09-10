@@ -3,10 +3,10 @@ import json
 import pickle
 import numpy as np
 import pandas as pd
-import sys; sys.path.append('../')
+import sys; sys.path.append('../'); sys.path.append('../Helper/')
 from param_config import config
 from reader import load_processed_data, load_original_text
-from tools import seriesToJson
+from converter import series_to_json
 
 def tokenize(doc):
 	tokenized_doc = list()
@@ -20,7 +20,7 @@ def tokenize_df(df):
 def dump_tokenized_json(df, path):
 	if not 'tokenized_text' in df.columns:
 		tokenize_df(df)
-	tokens_json = seriesToJson(df['tokenized_text'], str)
+	tokens_json = series_to_json(df['tokenized_text'], str)
 	with open(path, 'w') as f:
 		json.dump(tokens_json, f, indent=2)
 

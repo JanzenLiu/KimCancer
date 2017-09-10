@@ -4,10 +4,10 @@
 import pandas as pd
 import re
 import pickle
-import sys; sys.path.append("../"); sys.path.append("../Preprocess/")
+import sys; sys.path.append("../"); sys.path.append("../Preprocess/"); sys.path.append("../Helper/")
 from param_config import config
 from reader import load_original_text, load_stratified_kfold
-from feat_utils import dump_feat, dump_feats
+from writer import dump_feature
 from unicode_dict import unicodes
 
 df_train_txt, df_test_txt = load_original_text()
@@ -21,7 +21,7 @@ def extract_unicode_count(code_regex, dump=False):
 	df_train_txt[feat_name] = df_train_txt["Text"].apply(lambda x: count_unicode_in_text(x, code_regex))
 	df_test_txt[feat_name] = df_test_txt["Text"].apply(lambda x: count_unicode_in_text(x, code_regex))
 	if dump:
-		dump_feat(df_train_txt, df_test_txt, feat_name)
+		dump_feature(df_train_txt, df_test_txt, feat_name)
 
 def extract_all():
 	############################

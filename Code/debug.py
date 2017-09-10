@@ -9,9 +9,11 @@ sys.path.append('../EDA/')
 sys.path.append('../Preprocess/')
 sys.path.append('../Feat/')
 sys.path.append('../Model/')
+sys.path.append('../Helper/')
 from param_config import config
 from reader import *
-from tools import *
+from writer import *
+from converter import *
 from word_select import *
 from tokenizer import *
 
@@ -54,7 +56,7 @@ if not os.path.exists(config.debug_data_path):
 	### text object ###
 	###################
 	tokenize_df(df_debug)
-	text_obj = seriesToJson(df_debug['tokenized_text'], str)
+	text_obj = series_to_json(df_debug['tokenized_text'], str)
 
 	###########################
 	### shrinked vocabulary ###

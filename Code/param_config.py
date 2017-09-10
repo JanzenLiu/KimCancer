@@ -44,8 +44,6 @@ class ParamConfig:
 		self.test_tokens_path = "%s/test.tokens.json" % self.data_folder
 		self.processed_train_data_path = "%s/train.processed.p" % self.data_folder
 		self.processed_test_data_path = "%s/test.processed.p" % self.data_folder
-		self.pattern_cache_file = "%s/patterns.last_processed.p" % self.pattern_folder
-		self.unicode_cache_file = "%s/unicodes.last_processed.p" % self.data_folder
 		self.main_dictionary_path = '%s/350k_dictionary.txt' % self.external_data_folder
 		self.suppliment_dictionary_path = '%s/10k_dictionary.txt' % self.external_data_folder
 		self.bio_corpus_path = "%s/bioCorpus_5000.txt" % self.external_data_folder

@@ -1,8 +1,8 @@
 import re
-import sys; sys.path.append('../')
+import sys; sys.path.append('../'); sys.path.append('../Helper/')
 from param_config import config
 from reader import load_original_text
-from tools import save_words
+from writer import dump_words
 
 normal_chars = [',', '.', '?', '!', ':', ';', 
 				'(', ')', '[', ']', '{', '}',
@@ -34,4 +34,4 @@ if __name__ == "__main__":
 	special_chars = train_special_chars.copy()
 	special_chars.update(test_special_chars)
 
-	save_words(special_chars, config.special_characters_path)
+	dump_words(special_chars, config.special_characters_path, "Saving special characters...")

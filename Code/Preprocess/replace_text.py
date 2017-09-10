@@ -4,7 +4,7 @@
 import pandas as pd
 import re
 import pickle
-import sys; sys.path.append("../")
+import sys; sys.path.append("../"); sys.path.append("../Helper/")
 from param_config import config
 from reader import load_original_text
 from unicode_dict import unicodes

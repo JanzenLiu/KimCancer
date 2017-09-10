@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
 import pickle
-import sys; sys.path.append("../")
+from sklearn.model_selection import StratifiedKFold
+import sys; sys.path.append("../"); sy.path.append("../Helper/")
 from param_config import config
 from reader import load_original_variants
-from sklearn.model_selection import StratifiedKFold
 
 '''
 generate stratified kfold with specific parameters
