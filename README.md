@@ -35,29 +35,48 @@ To reproduce the results, as well as the intermediate product, you need to:
 - [x] refactor codes: split Preprocess part to EDA(Explorative Data Analysis).
 - [x] refactor codes: split loading file, dumping file, converting data parts to different modules.
 - [ ] add code spec.
-- [x] extract special characters from the original text.
-- [x] extract common and speical words(tokens) from the original text.
+- [x] extract special characters.
+- [x] extract common and speical words(tokens):
+	- [x] on original text data.
+	- [ ] on processed text data.
+- [ ] get common and special words counter for each document
+	- [ ] on original text data.
+	- [ ] on processed text data.
 - [x] get unique common and special words.
 - [ ] observe others patterns and replenish pattern dictionary
-- [ ] get unique common and special words after extracting special patterns
-- [ ] get common and special words counter for each document
 - [ ] accelerate gensim Word2Vec using cython.
 - [ ] add feature counting occurences and unique occurences of specific patterns (listed in ./Code/Preprocess/pattern_dict.py).
 - [x] add directory and file examination in kFold generating function.
 - [x] one-hot encode Gene.
 - [ ] extract physiological chemistry related features from variant data (i.e. encode Variation).
-- [ ] extract basic text-concerning counting features (e.g. digit count, word count , sentence count...).
-- [ ] extract TF-IDF and truncated TF-IDF features from text data.
-- [ ] extract TF-IDF distance statistics features.
-- [ ] extract word2vec features from text data.
-- [ ] extract word2vec distance statistics features.
-- [ ] perform k-Mean clustering on word vectors obtained by word2vec
- -[ ] extract word counting features for each cluster of words obtained above 
+- [ ] extract basic NLP-related counting features (e.g. digit count, word count , sentence count...).
+- [ ] extract TF-IDF(transformed) and truncated BOW features:
+	- [ ] on original text data.
+	- [ ] on processed text data.
+- [ ] extract TF-IDF and truncated TF-IDF features:
+	- [ ] on original text data.
+	- [ ] on processed text data.
+- [ ] extract TF-IDF distance statistics features:
+	- [ ] on original text data.
+	- [ ] on processed text data.
+- [ ] extract word2vec features:
+	- [ ] on original text data.
+	- [ ] on processed text data.
+- [ ] perform k-Mean clustering on word vectors obtained above.
+	- [ ] on original text data.
+	- [ ] on processed text data.
+- [ ] extract word counting features for each cluster of words obtained above 
+	- [ ] on original text data.
+	- [ ] on processed text data.
+- [ ] extract word2vec distance statistics features on processed test data.
 - [ ] extract intersection features between vectorized text features, Gene-related features, and Variation related features.
-- [ ] model to use: LogisticRegression (with different penalty terms, e.g. l1, l2)
+- [ ] model to use: LogisticRegression (Ridge, Lasso, plain LR)
 - [ ] model to use: Random Forest
 - [ ] model to use: SVC (with different kernels)
 - [ ] model to use: LDA
+- [ ] model to use: LSTM
+- [ ] model to use: KNN
+- [ ] XGBoost (with all kinds of available voters specified above)
 
 ### Prerequisites
 
