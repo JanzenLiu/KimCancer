@@ -64,12 +64,6 @@ class ParamConfig:
 		## transform for count features
 		self.count_feat_transform = count_feat_transform
 
-		## create cache file for special unicodes used to extract features
-		if not os.path.exists(self.unicode_cache_file):
-			unicodes = {}
-			with open(self.unicode_cache_file, "wb") as f:
-				pickle.dump(unicodes, f)
-
 		## create feat folder
 		if not os.path.exists(self.feat_folder):
 			os.makedirs(self.feat_folder)
