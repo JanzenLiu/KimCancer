@@ -3,13 +3,13 @@ import nltk
 class WordMap:
 	def __init__(self):
 		self.dic = dict()
-
+		
 	def map_sent(self, sent):
 		if type(sent) == str:
 			sent = nltk.word_tokenize(sent)
 		for index, word in enumerate(sent):
 			if (index+3 < len(sent)) and (sent[index+1] == "(" and sent[index+3] == ")") and (not sent[index+2].isdigit()):
-				if not word in self.dict:
+				if not word in self.dic:
 					self.dic[word] = set()
 				self.dic[word].add(sent[index+2])
 
