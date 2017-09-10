@@ -1,6 +1,6 @@
 import nltk
 
-class WordMap():
+class WordMap:
 	def __init__(self):
 		self.dic = dict()
 
