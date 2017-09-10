@@ -51,6 +51,8 @@ To reproduce the results, as well as the intermediate product, you need to:
 - [ ] extract TF-IDF distance statistics features.
 - [ ] extract word2vec features from text data.
 - [ ] extract word2vec distance statistics features.
+- [ ] perform k-Mean clustering on word vectors obtained by word2vec
+ -[ ] extract word counting features for each cluster of words obtained above 
 - [ ] extract intersection features between vectorized text features, Gene-related features, and Variation related features.
 - [ ] model to use: LogisticRegression (with different penalty terms, e.g. l1, l2)
 - [ ] model to use: Random Forest

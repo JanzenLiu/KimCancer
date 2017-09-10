@@ -71,8 +71,6 @@ class ParamConfig:
 		## create folder for the training, testing feat and raw output
 		if not os.path.exists("%s/All" % self.feat_folder):
 			os.makedirs("%s/All" % self.feat_folder)
-		if not os.path.exists("%s/Raw" % self.feat_folder):
-			os.makedirs("%s/Raw" % self.feat_folder)
 
 		## create folder for each run and fold
 		for run in range(1, self.n_runs+1):

@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pickle
 import json
-import sys
+import sys; sys.path.append('../')
 import os
 from param_config import config
 
