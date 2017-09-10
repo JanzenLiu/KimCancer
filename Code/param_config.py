@@ -53,6 +53,7 @@ class ParamConfig:
 		self.common_words_test_savepath = '%s/common_words.test.json' % self.vocabulary_folder
 		self.unique_special_words_path = "%s/all.special_words.txt" % self.vocabulary_folder
 		self.unique_common_words_path = "%s/all.common_words.txt" % self.vocabulary_folder
+		self.wordmap_path = "%s/all.word_map.json" % self.vocabulary_folder
 
 		## nlp related
 		self.basic_tfidf_ngram_range = basic_tfidf_ngram_range

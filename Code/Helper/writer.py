@@ -1,4 +1,5 @@
 import pickle
+import json
 import sys; sys.path.append("../")
 from param_config import config
 from reader import load_stratified_kfold
@@ -11,6 +12,12 @@ def dump_words(words, path, message=None):
 	with open(path, "w") as f:
 		for word in words:
 			f.write("%s\n" % word)
+
+def dump_json(obj, path, message=None):
+	if message:
+		print(message)
+	with open(path, "w") as f:
+		json.dump(obj)
 
 '''
 Saving specified feature to some paths. Given a feature:
