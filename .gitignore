@@ -9,4 +9,5 @@ Word2Vec/*
 *.pyo
 *.json
 *.swp
+!Vocabulary/all.word_map.json
 
