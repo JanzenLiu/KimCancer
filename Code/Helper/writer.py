@@ -17,7 +17,7 @@ def dump_json(obj, path, message=None):
 	if message:
 		print(message)
 	with open(path, "w") as f:
-		json.dump(obj)
+		json.dump(obj, f)
 
 '''
 Saving specified feature to some paths. Given a feature:
