@@ -10,7 +10,7 @@ import sys; sys.path.append("../"); sys.path.append("../Helper/")
 import pickle
 from collections import Counter
 from param_config import config
-from reader import load_replaced_text
+from reader import load_original_text
 from pattern_dict import patterns, other_patterns
 
 
@@ -80,7 +80,7 @@ def extract_speical_chars_freq(df_train, df_test):
 	other_pats: patterns to extract after pats were removed from the text
 '''
 def extract_and_remove_all(df_train, df_test, pats, other_pats=other_patterns):
-	output_path = "%s/dev" % config.pattern_folder
+	output_path = config.pattern_folder
 	if not os.path.exists(output_path):
 		os.makedirs(output_path)
 
@@ -106,4 +106,5 @@ def extract_and_remove_all(df_train, df_test, pats, other_pats=other_patterns):
 
 if __name__ == "__main__":
 	df_train_txt, df_test_txt = load_original_text()
+	extract_speical_chars_freq(df_train_txt, df_test_txt)
 	extract_and_remove_all(df_train_txt, df_test_txt, patterns, other_patterns)

@@ -21,6 +21,8 @@ class Debug():
 	def __init__(self, doc, df, tokens_json, vocab):
 		self.doc = doc
 		self.df = df
+		self.df_train = self.df.iloc[:9].copy()
+		self.df_test = self.df.iloc[9:].drop(['Class'], axis=1).copy()
 		self.tokens_json = tokens_json
 		self.vocab = vocab
 
