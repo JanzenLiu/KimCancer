@@ -3,7 +3,7 @@ import json
 import pickle
 import numpy as np
 import pandas as pd
-import sys; sys.path.append('../'); sys.path.append('../Helper/')
+import sys; sys.path.append('../'); sys.path.append('../Utils/')
 from param_config import config
 from reader import load_processed_data, load_original_text
 from converter import series_to_json
@@ -14,8 +14,8 @@ def tokenize(doc):
 		tokenized_doc.append(nltk.word_tokenize(sent))
 	return tokenized_doc
 
-def tokenize_df(df):
-	df['tokenized_text'] = df['Text'].map(tokenize)
+def tokenize_df(df, text_col="Text"):
+	df['tokenized_text'] = df[text_col].map(tokenize)
 
 def dump_tokenized_json(df, path):
 	if not 'tokenized_text' in df.columns:

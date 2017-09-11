@@ -39,10 +39,15 @@ To reproduce the results, as well as the intermediate product, you need to:
 - [x] extract common and speical words(tokens):
 	- [x] on original text data.
 	- [ ] on processed text data.
-- [ ] get common and special words counter for each document
+- [ ] get common and special words counter for each document:
 	- [ ] on original text data.
 	- [ ] on processed text data.
 - [x] get unique common and special words.
+- [ ] extract special biological/chemical/medical terms from the text.
+- [ ] build word map:
+	- [x] build 1-to-1 map.
+	- [ ] build m-to-n map.
+	- [ ] build map with counter (to determine the reliability of the map).
 - [ ] observe others patterns and replenish pattern dictionary
 - [ ] accelerate gensim Word2Vec using cython.
 - [ ] add feature counting occurences and unique occurences of specific patterns (listed in ./Code/Preprocess/pattern_dict.py).

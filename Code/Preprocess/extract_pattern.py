@@ -6,7 +6,7 @@ import pandas as pd
 import re
 import json
 import os
-import sys; sys.path.append("../"); sys.path.append("../Helper/")
+import sys; sys.path.append("../"); sys.path.append("../Utils/")
 import pickle
 from collections import Counter
 from param_config import config
@@ -64,7 +64,7 @@ def extract_speical_chars_freq(df_train, df_test):
 	df = pd.DataFrame(columns=["character", "hex", "count"])
 	for index,(char, count) in enumerate(counter_all.most_common()):
 		df.loc[index, "character"] = char
-		df.loc[index, "hex"] = hex(ord(char))
+		df.loc[index, "hex"] = "0x%04x" % ord(char)
 		df.loc[index, "count"] = count
 
 	path = "%s/all.special_chars.freq.csv" % (config.vocabulary_folder)

@@ -6,6 +6,7 @@ token_pattern = r"\b\w\w+\b"
 ### speicial patterns to be extracted and removed from the original text ###
 ############################################################################
 
+new_figure_pattern = r"\b(?=see |\(|[Ss]upplementary)?[Ff]ig.*\d*.*(?=\))?\b"
 
 import re
 patterns = {

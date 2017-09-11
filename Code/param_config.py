@@ -39,7 +39,7 @@ class ParamConfig:
 		self.original_test_text_path = "%s/test_text" % self.data_folder
 		self.original_test_variant_path = "%s/test_variants" % self.data_folder
 		self.debug_data_path = "%s/debug.p" % self.data_folder
-		self.special_characters_path = "%s/special_characters.txt" % self.vocabulary_folder
+		self.special_characters_path = "%s/all.special_characters.csv" % self.vocabulary_folder
 		self.train_tokens_path = "%s/train.tokens.json" % self.data_folder
 		self.test_tokens_path = "%s/test.tokens.json" % self.data_folder
 		self.processed_train_data_path = "%s/train.processed.p" % self.data_folder

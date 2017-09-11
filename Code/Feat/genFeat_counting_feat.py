@@ -2,35 +2,112 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
+import nltk
 import re
 import pickle
-import sys; sys.path.append("../"); sys.path.append("../Preprocess/"); sys.path.append("../Helper/")
+import sys
+sys.path.append("../")
+sys.path.append("../EDA/")
+sys.path.append("../Preprocess/")
+sys.path.append("../Utils/")
 from param_config import config
-from reader import load_original_text, load_stratified_kfold
+from tokenizer import tokenize, tokenize_df
+from reader import load_original_text
 from writer import dump_feature
 from unicode_dict import unicodes
 
-df_train_txt, df_test_txt = load_original_text()
-skf = load_stratified_kfold()
 
-def count_unicode_in_text(text, code_regex):
-	return len(re.findall(code_regex, text, re.UNICODE))
+###########################
+### auxiliary functions ###
+###########################
+def count_pattern_in_text(text, regex, ignore_case=True):
+	if not ignore_case:
+		return len(re.findall(regex, text, re.UNICODE))
+	return len(re.findall(regex, text, re.UNICODE|re.I))
 
-def extract_unicode_count(code_regex, dump=False):
-	feat_name = "count_of_unicode_%s" % code_regex[1:]
-	df_train_txt[feat_name] = df_train_txt["Text"].apply(lambda x: count_unicode_in_text(x, code_regex))
-	df_test_txt[feat_name] = df_test_txt["Text"].apply(lambda x: count_unicode_in_text(x, code_regex))
-	if dump:
-		dump_feature(df_train_txt, df_test_txt, feat_name)
+def count_sent_in_doc(doc):
+	if type(doc) == str:
+		doc = nltk.sent_tokenize(doc)
+	return len(doc)
 
-def extract_all():
-	############################
-	## get unicode count feat ##
-	############################
-	with open(config.unicode_cache_file, "rb") as f:
-		old_unicodes = pickle.load(f)
-	for key, value in unicodes.items():
-		# skip if the counting feature of the unicode has been extracted
-		if key in old_unicodes.keys():
-			continue
-		extract_unicode_count(key, True)
+def count_word_in_sent(sent):
+	if type(sent) == str:
+		sent = nltk.word_tokenize(sent)
+	# add filter? filter out tokens like comma, period and so on
+	return len(sent)
+
+def extract_tokens(df):
+	tokenize_df(df)
+
+
+##########################################
+### extract count of specified segment ###
+##########################################
+def extract_word_count(df, word, text_col="Text"):
+	print("Extracting count of word %s..." % word)
+	feat_name = "count_of_word_%s" % word
+	df[feat_name] = df[text_col].map(lambda x: count_pattern_in_text(x, word))
+
+def extract_pattern_count(df, regex, pattern_name, text_col="Text"):
+	print("Extracting count of pattern %s..." % pattern_name)
+	feat_name = "count_of_pattern_%s" % pattern_name
+	df[feat_name] = df[text_col].map(lambda x: count_pattern_in_text(x, regex))
+
+def extract_char_count(df, char, text_col="Text"):
+	print("Extracting count of character %s..." % char)
+	feat_name = "count_of_char_0x%04x" % char
+	df[feat_name] = df[text_col].map(lambda x: count_pattern_in_text(x, char))
+
+
+###########################################
+### extract count of basic nlp elements ###
+###########################################
+def extract_sents_count(df, text_col="Text"):
+	print("Extracting count of sentences...")
+	df["count_of_sents"] = df[text_col].map(count_sent_in_doc)
+
+def extract_words_count(df, text_col="Text"):
+	print("Extracting count of words...")
+	df["count_of_words"] = df[text_col].map(count_word_in_sent)
+
+def extract_chars_count(df, text_col="Text"):
+	print("Extracting count of character...")
+	df["count_of_chars"] = df[text_col].map(lambda x: len(x))
+
+
+##########################################################
+### extract count of biological/chemical/medical terms ###
+##########################################################
+def extract_gene_share(df):
+	print("Extracting gene share...")
+	df["share_gene"] = df.apply(lambda x: count_pattern_in_text(x["Text"], x["Gene"]))
+
+def extract_variation_share(df):
+	print("Extracting variation share...")
+	df["share_variation"] = df.apply(lambda x: count_pattern_in_text(x["Text"], x["Variation"]))
+
+def extract_gene_count(df, gene):
+	print("Extracting count of gene %s..." % gene)
+	feat_name = "count_of_gene_%s" % gene.lower().replace(" ","_")
+	df[feat_name] = df["Text"].map(lambda x: count_pattern_in_text(x, gene))
+
+def extract_variation_count(df, var):
+	print("Extracting count of vairation %s..." % var)
+	feat_name = "count_of_variation_%s" % var.lower().replace(" ","_")
+	df[feat_name] = df["Text"].map(lambda x: count_pattern_in_text(x, var))
+
+def extract_all_gene_count(df, gene_list=None):
+	print("Extracting count of all genes...")
+	if not gene_list:
+		gene_list = df["Gene"].unique()
+	for gene in gene_list:
+		extract_gene_count(gene)
+
+def extracta_all_variation_count(df, var_list=None):
+	print("Extractig count of all variations...")
+	if not var_list:
+		var_list = df["Variation"].unique()
+	for var in var_list:
+		extract_variation_count(var)
+
+

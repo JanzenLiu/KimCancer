@@ -9,7 +9,7 @@ sys.path.append('../EDA/')
 sys.path.append('../Preprocess/')
 sys.path.append('../Feat/')
 sys.path.append('../Model/')
-sys.path.append('../Helper/')
+sys.path.append('../Utils/')
 from param_config import config
 from reader import *
 from writer import *

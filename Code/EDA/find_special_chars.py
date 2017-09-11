@@ -1,5 +1,5 @@
 import re
-import sys; sys.path.append('../'); sys.path.append('../Helper/')
+import sys; sys.path.append('../'); sys.path.append('../Utils/')
 from param_config import config
 from reader import load_original_text
 from writer import dump_words

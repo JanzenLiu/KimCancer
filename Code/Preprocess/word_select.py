@@ -5,7 +5,7 @@ import os
 import re
 import pickle
 import json
-import sys; sys.path.append('../'); sys.path.append("../Helper/")
+import sys; sys.path.append('../'); sys.path.append("../Utils/")
 from param_config import config
 from reader import load_vocabulary
 from writer import dump_words

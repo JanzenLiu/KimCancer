@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import pickle
 from sklearn.model_selection import StratifiedKFold
-import sys; sys.path.append("../"); sy.path.append("../Helper/")
+import sys; sys.path.append("../"); sy.path.append("../Utils/")
 from param_config import config
 from reader import load_original_variants
 
@@ -19,8 +19,8 @@ def gen_kfold(n_runs=config.n_runs, n_folds=config.n_folds, label, df):
     skf = [0]*config.n_runs
     for run in range(n_runs):
         random_seed = 2017 + 1000 * (run+1)
-        skf_helper = StratifiedKFold(n_splits=n_folds, shuffle=True, random_state=random_seed)
-        skf[run] = list(skf_helper.split(df, df[label]))
+        skf_Utils = StratifiedKFold(n_splits=n_folds, shuffle=True, random_state=random_seed)
+        skf[run] = list(skf_Utils.split(df, df[label]))
         for fold, (trainInd, validInd) in enumerate(skf[run]):
             print("================================")
             print("Index for run: %s, fold: %s" % (run+1, fold+1))

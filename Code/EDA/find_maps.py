@@ -1,6 +1,6 @@
 import nltk
 import json
-import sys; sys.path.append("../"); sys.path.append("../Helper/")
+import sys; sys.path.append("../"); sys.path.append("../Utils/")
 from reader import load_tokens
 from writer import dump_json
 from param_config import config

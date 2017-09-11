@@ -115,6 +115,9 @@ def load_special_chars():
             char = vocab_file.readline().strip()
     return chars
 
+def load_special_chars_csv():
+	df = pd.read_csv("../../all.special_chars.freq.csv")
+	return df
 
 '''
 @param: stratified_label: label used to generated the stratified kfold
