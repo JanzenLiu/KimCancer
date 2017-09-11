@@ -2,9 +2,9 @@ Pattern/dev/*
 Feat/dev/*
 Data/*
 Temp/*
+Debug/*
 Word2Vec/*
 *.p
-*.csv
 *.pyc
 *.pyo
 *.json

@@ -107,4 +107,4 @@ def extract_and_remove_all(df_train, df_test, pats, other_pats=other_patterns):
 if __name__ == "__main__":
 	df_train_txt, df_test_txt = load_original_text()
 	extract_speical_chars_freq(df_train_txt, df_test_txt)
-	extract_and_remove_all(df_train_txt, df_test_txt, patterns, other_patterns)
+	# extract_and_remove_all(df_train_txt, df_test_txt, patterns, other_patterns)
