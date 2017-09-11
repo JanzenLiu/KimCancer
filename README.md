@@ -13,13 +13,13 @@ To reproduce the results, as well as the intermediate product, you need to:
 
 ### Text Preprocessing
 
-* We remove content matched with the patterns specified in ./Code/Preprocess/pattern_dict.py from the original text data (the content removed are saved under ./Pattern/dev/).
-* We replace some unicode characters with the alternative word(s) specified in ./Code/Preprocess/unicode_dict.py.
+* We remove content matched with the patterns specified in `./Code/Preprocess/pattern_dict.py` from the original text data (the content removed are saved under `./Pattern/dev/`).
+* We replace some unicode characters with the alternative word(s) specified in `./Code/Preprocess/unicode_dict.py`.
 * To be added...
 
 ### Feature Engineering
 
-* We add features counting the occurences of specific unicode characters (listed in ./Code/Preprocess/unicode_dict.py).
+* We add features counting the occurences of specific unicode characters (listed in `./Code/Preprocess/unicode_dict.py`).
 * To be added...
 
 ### Single Model Training
@@ -98,6 +98,12 @@ Running this project requires following python packages:
 * cython (setup for word2vec acceleration should be done)
 
 ### Reference
+1. [DNA Recommendations][1]
+2. [Recommendations for the description of protein sequence variants][2]
+3. [Standards Nucleotides (DNA / RNA)][3]
 
 [a]:https://www.kaggle.com/c/msk-redefining-cancer-treatment
 [b]:https://www.kaggle.com/c/msk-redefining-cancer-treatment/data
+[1]:http://varnomen.hgvs.org/recommendations/DNA/
+[2]:http://www.hgvs.org/mutnomen/recs-prot.html
+[3]:http://varnomen.hgvs.org/bg-material/standards/
