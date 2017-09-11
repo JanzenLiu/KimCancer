@@ -45,7 +45,7 @@ def extract_tokens(df):
 ##########################################
 def extract_word_count(df, word, text_col="Text"):
 	print("Extracting count of word %s..." % word)
-	feat_name = "count_of_word_%s" % word
+	feat_name = "count_of_word_%s" % word.lower()
 	df[feat_name] = df[text_col].map(lambda x: count_pattern_in_text(x, word))
 
 def extract_pattern_count(df, regex, pattern_name, text_col="Text"):
@@ -63,16 +63,18 @@ def extract_char_count(df, char, text_col="Text"):
 ### extract count of basic nlp elements ###
 ###########################################
 def extract_sents_count(df, text_col="Text"):
-	print("Extracting count of sentences...")
+	print("Extracting count of sentences in %s..." % text_col.lower())
 	df["count_of_sents"] = df[text_col].map(count_sent_in_doc)
 
 def extract_words_count(df, text_col="Text"):
-	print("Extracting count of words...")
-	df["count_of_words"] = df[text_col].map(count_word_in_sent)
+	print("Extracting count of words in %s..." % text_col.lower())
+	feat_name = "count_of_words_in_%s" % text_col.lower()
+	df[feat_name] = df[text_col].map(count_word_in_sent)
 
 def extract_chars_count(df, text_col="Text"):
-	print("Extracting count of character...")
-	df["count_of_chars"] = df[text_col].map(lambda x: len(x))
+	print("Extracting length of %s..." % text_col.lower())
+	feat_name = "count_of_chars_in_%s" % text_col.lower()
+	df[feat_name] = df[text_col].map(lambda x: len(x))
 
 
 ##########################################################

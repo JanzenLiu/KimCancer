@@ -48,12 +48,16 @@ To reproduce the results, as well as the intermediate product, you need to:
 	- [x] build 1-to-1 map.
 	- [ ] build m-to-n map.
 	- [ ] build map with counter (to determine the reliability of the map).
-- [ ] observe others patterns and replenish pattern dictionary
+- [ ] observe others patterns and replenish pattern dictionary.
+- [ ] crawl external data
+	- [ ] function of Gene/AA
+	- [ ] effects of same mutations found in the past
 - [ ] accelerate gensim Word2Vec using cython.
-- [ ] add feature counting occurences and unique occurences of specific patterns (listed in ./Code/Preprocess/pattern_dict.py).
+- [ ] add feature counting occurences and unique occurences of specific patterns (listed in ./Code/Preprocess/pattern_dict.py).	
 - [x] add directory and file examination in kFold generating function.
 - [x] one-hot encode Gene.
 - [ ] extract physiological chemistry related features from variant data (i.e. encode Variation).
+- [ ] add standard/non-standard label to variation.
 - [ ] extract basic NLP-related counting features (e.g. digit count, word count , sentence count...).
 - [ ] extract TF-IDF(transformed) and truncated BOW features:
 	- [ ] on original text data.

@@ -10,10 +10,10 @@ DNA binding domain missense mutations
 Length: 4
 DNA binding domain deletions
 DNA binding domain insertions
-ERLIN2?FGFR1 Fusion
-FGFR3 - BAIAP2L1 Fusion
-FGFR2?PPHLN1 Fusion
-FLT3 internal tandem duplications
+ERLIN2?FGFR1 Fusion 	# correct to ERLIN2-FGFR1 Fusion
+FGFR3 - BAIAP2L1 Fusion # correct to FGFR3-BAIAP2L1
+FGFR2?PPHLN1 Fusion 	# correct to FGFR2-PPHLN1 Fusion
+FLT3 internal tandem duplications		# FLT3 is already in Gene, remove it (train#1640)
 
 
 Length: 3
@@ -31,8 +31,8 @@ Exon 11 mutations
 Exon 9 mutations
 Exon 1 mutations
 Exon 2 mutations
-TRKAIII Splice Variant
-Single Nucleotide Polymorphism
+TRKAIII Splice Variant		# TRKAIII seems to be a gene promotor
+Single Nucleotide Polymorphism 
 Exon 11 deletions
 
 
@@ -198,15 +198,15 @@ Length: 1
 Deletion
 Amplification
 Overexpression
-TGFBR1*6A
-L747_T751delinsP
+TGFBR1*6A			# a common polymorphism of the type I transforming growth factor beta receptor(TGFBR1)
+L747_T751delinsP	# amino acid L747 to T751 deleted with P inserted
 S752_I759del
 D770_P772dup
 N771_H773dup
 E746_T751insIP
 D770_N771insD
 K745_A750del
-EGFRvIII
+EGFRvIII			# variant III of EGFR (the epidermal growth factor receptor, could be removed seems the gene is EGFR)
 EGFRvII
 D770_N771insNPG
 E746_A750del
@@ -220,7 +220,7 @@ H773_V774insH
 L747_A750delinsP
 L747_E749del
 L747_T751del
-EGFR-KDD
+EGFR-KDD			# EGFR Kinase Domain Duplicate
 L747_A750del
 E746_T751delinsA
 S768_D770dup
@@ -296,16 +296,16 @@ Y599_D600insPAPQIMSTSTLISENMNIA
 E598_Y599insGLVQVTGSSDNEYFYVDFREYE
 Y599_D600insEYEYEYEY
 D600_L601insFREYEYD
-422_605trunc
+422_605trunc		# should be corrected to 422_605del?
 Q58_Q59insL
-ARv567es
-AR-V7
+ARv567es			# a common kind of gene variants on AR gene
+AR-V7				# androgen receptor splice variant-7
 Q347_A348del
 Q56_V60del
 E102_I103del
 Q58_E62del
 T244_I245insCPT
-MYC-nick
+MYC-nick			# MYC is a regulator gene that codes for a transcription factor. and MYC-nick is a cytoplasmic cleavage product of Myc
 D289_D292del
 256_286trunc
 L283_D294del
