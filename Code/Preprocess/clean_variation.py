@@ -1,4 +1,4 @@
-import pd
+import pandas as pd
 import sys; sys.path.append("../Utils")
 from reader import load_original_variants
 from param_config import config
