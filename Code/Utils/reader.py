@@ -31,36 +31,12 @@ def load_original_data():
 	df_test = pd.merge(df_test_txt, df_test_var, how="left", on="ID").fillna("")
 	return df_train, df_test
 
-
-'''return last saved text data with special characters replaced'''
-def load_replaced_text():
-	replaced_train_text_path = "%s/training_text.replaced_unicode.p" % config.data_folder
-	replaced_test_text_path = "%s/test_text.replaced_unicode.p" % config.data_folder
-	if not (os.path.exists(replaced_train_text_path) and os.path.exists(replaced_test_text_path)):
-		print("[Warning] Replaced text files do not exist")
-		return load_original_text()
-
-	print("Loading text with special characters replaced...")
-	with open(replaced_train_text_path, "rb") as f:
-		df_train_txt = pickle.load(f)
-	with open(replaced_test_text_path, "rb") as f:
-		df_test_txt = pickle.load(f)
-	return df_train_txt, df_test_txt
-
-'''return last saved text data with special patterns removed'''
-def load_extracted_text():
-	extracted_train_text_path = "%s/training_text.extracted_pattern.p" % config.data_folder
-	extracted_test_text_path = "%s/test_text.extracted_pattern.p" % config.data_folder
-	if not (os.path.exists(extracted_train_text_path) and os.path.exists(extracted_test_text_path)):
-		print("[Warning] Extracted text files do not exist")
-		return load_original_text()
-
-	print("Loading text with patterns extracted...")
-	with open(extracted_train_text_path, "rb") as f:
-		df_train_txt = pickle.load(f)
-	with open(extracted_test_text_path, "rb") as f:
-		df_test_txt = pickle.load(f)
-	return df_train_txt, df_test_txt
+'''return processed variants data'''
+def load_processed_variants():
+	print("Loading processed variants data...")
+	df_train_var = pd.read_csv(config.processed_train_variant_path)
+	df_test_var = pd.read_csv(config.processed_test_variant_path)
+	return df_train_var, df_test_var
 
 '''return last saved processed data, with text and variants merged'''
 def load_processed_data():
@@ -69,6 +45,15 @@ def load_processed_data():
 		df_train = pickle.load(f)
 	with open(config.processed_test_data_path, "rb") as f:
 		df_test = pickle.load(f)
+	return df_train, df_test
+
+'''return processed variants data'''
+def load_current_data():
+	print("Loading current data (with text unchanged and variants processed)...")
+	df_train_txt, df_test_txt = load_original_text()
+	df_train_var, df_test_var = load_processed_variants()
+	df_train = pd.merge(df_train_txt, df_train_var, how="left", on="ID").fillna("")
+	df_test = pd.merge(df_test_txt, df_test_var, how="left", on="ID").fillna("")
 	return df_train, df_test
 
 '''return tokens extracted from text data'''

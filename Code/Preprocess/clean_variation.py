@@ -13,11 +13,13 @@ if __name__ == "__main__":
 	FLT3 internal tandem duplications		# -> internal tandem duplication, train#1640
 	PAX8-PPAR? Fusion 						# -> PAX8-PPARγ Fusion, train#2910
 	M1_E165DEL								# -> M1_E165del, train#961
+	EGFR-KDD 								# -> Kinase Domain Duplication, train#211
 	'''
 
 	df_train_var, df_test_var = load_original_variants()
 
 	print("Cleaning variation of original data...")
+	df_train_var["Variation"].set_value(211, "Kinase Domain Duplication")
 	df_train_var["Variation"].set_value(961, "M1_E165del")
 	df_train_var["Variation"].set_value(1389, "ERLIN2-FGFR1 Fusion")
 	df_train_var["Variation"].set_value(1410, "FGFR3-BAIAP2L1 Fusion")
