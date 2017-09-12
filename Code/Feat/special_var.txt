@@ -10,9 +10,9 @@ DNA binding domain missense mutations
 Length: 4
 DNA binding domain deletions
 DNA binding domain insertions
-ERLIN2?FGFR1 Fusion 	# correct to ERLIN2-FGFR1 Fusion
-FGFR3 - BAIAP2L1 Fusion # correct to FGFR3-BAIAP2L1
-FGFR2?PPHLN1 Fusion 	# correct to FGFR2-PPHLN1 Fusion
+ERLIN2?FGFR1 Fusion 	# correct to ERLIN2-FGFR1 Fusion, train#1389
+FGFR3 - BAIAP2L1 Fusion # correct to FGFR3-BAIAP2L1, train#1410
+FGFR2?PPHLN1 Fusion 	# correct to FGFR2-PPHLN1 Fusion, #train1470
 FLT3 internal tandem duplications		# FLT3 is already in Gene, remove it (train#1640)
 
 
@@ -26,7 +26,7 @@ Copy Number Loss
 Exon 20 insertions/deletions
 Exon 20 insertions
 Exon 13 deletion
-PAX8-PPAR? Fusion
+PAX8-PPAR? Fusion 			# should be PAX8-PPARγ, train#2910
 Exon 11 mutations
 Exon 9 mutations
 Exon 1 mutations
@@ -263,7 +263,7 @@ C456_R481del
 H845_N848delinsP
 560_561insER
 V544_L545insAVLVLLVIVIISLI
-M1_E165DEL
+M1_E165DEL		# correct to M1_E165del, train#961
 385_418del
 N198_F199delinsI
 X1007_splice
@@ -271,7 +271,7 @@ X963_splice
 X1009_splice
 981_1028splice
 X1008_splice
-963_D1010splice
+963_D1010splice # correct to ?963_D1010splice
 P449_L455del
 G106_R108del
 X475_splice
@@ -337,7 +337,7 @@ S501_A502dup
 T574_R588delinsL
 V559_V560del
 M552_K558del
-A504_Y505ins
+A504_Y505ins	# what to insert?
 Q556_K558del
 P551_W557delinsL
 N564_Y578del
@@ -405,5 +405,5 @@ null380R
 X1006_splice
 K602_W603insYEYDLK
 D286_L292trunc
-
+V600D_K601insFGLAT		# correct to V600D_K601insFGLAT, train#2760
 

@@ -50,12 +50,12 @@ def extract_word_count(df, word, text_col="Text"):
 
 def extract_pattern_count(df, regex, pattern_name, text_col="Text"):
 	print("Extracting count of pattern %s..." % pattern_name)
-	feat_name = "count_of_pattern_%s" % pattern_name
+	feat_name = "count_of_pattern_%s" % pattern_name.replace(" ", "_")
 	df[feat_name] = df[text_col].map(lambda x: count_pattern_in_text(x, regex))
 
 def extract_char_count(df, char, text_col="Text"):
 	print("Extracting count of character %s..." % char)
-	feat_name = "count_of_char_0x%04x" % char
+	feat_name = "count_of_char_0x%04x" % ord(char)
 	df[feat_name] = df[text_col].map(lambda x: count_pattern_in_text(x, char))
 
 
@@ -63,16 +63,16 @@ def extract_char_count(df, char, text_col="Text"):
 ### extract count of basic nlp elements ###
 ###########################################
 def extract_sents_count(df, text_col="Text"):
-	print("Extracting count of sentences in %s..." % text_col.lower())
+	print("Extracting count of sentences in %s..." % text_col)
 	df["count_of_sents"] = df[text_col].map(count_sent_in_doc)
 
 def extract_words_count(df, text_col="Text"):
-	print("Extracting count of words in %s..." % text_col.lower())
+	print("Extracting count of words in %s..." % text_col)
 	feat_name = "count_of_words_in_%s" % text_col.lower()
 	df[feat_name] = df[text_col].map(count_word_in_sent)
 
 def extract_chars_count(df, text_col="Text"):
-	print("Extracting length of %s..." % text_col.lower())
+	print("Extracting length of %s..." % text_col)
 	feat_name = "count_of_chars_in_%s" % text_col.lower()
 	df[feat_name] = df[text_col].map(lambda x: len(x))
 
@@ -90,12 +90,12 @@ def extract_variation_share(df):
 
 def extract_gene_count(df, gene):
 	print("Extracting count of gene %s..." % gene)
-	feat_name = "count_of_gene_%s" % gene.lower().replace(" ","_")
+	feat_name = "count_of_gene_%s" % gene.upper().replace(" ","_")
 	df[feat_name] = df["Text"].map(lambda x: count_pattern_in_text(x, gene))
 
 def extract_variation_count(df, var):
 	print("Extracting count of vairation %s..." % var)
-	feat_name = "count_of_variation_%s" % var.lower().replace(" ","_")
+	feat_name = "count_of_variation_%s" % var.upper().replace(" ","_")
 	df[feat_name] = df["Text"].map(lambda x: count_pattern_in_text(x, var))
 
 def extract_all_gene_count(df, gene_list=None):
@@ -103,13 +103,13 @@ def extract_all_gene_count(df, gene_list=None):
 	if not gene_list:
 		gene_list = df["Gene"].unique()
 	for gene in gene_list:
-		extract_gene_count(gene)
+		extract_gene_count(df, gene)
 
-def extracta_all_variation_count(df, var_list=None):
+def extract_all_variation_count(df, var_list=None):
 	print("Extractig count of all variations...")
 	if not var_list:
 		var_list = df["Variation"].unique()
 	for var in var_list:
-		extract_variation_count(var)
+		extract_variation_count(df, var)
 
 
