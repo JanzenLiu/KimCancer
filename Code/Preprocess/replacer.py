@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import pickle
 import csv
 import re
 import sys; sys.path.append("../Utils/")
@@ -47,3 +48,8 @@ if __name__ == "__main__":
 	replacer.replace_all(df_train_txt)
 	replacer.replace_all(df_test_txt)
 	print("Processing Finished.")
+
+	with open('../../Data/train_text.processed.p', 'rb') as f:
+		pickle.dump(df_train_txt, f)
+	with open('../../Data/test_text/processed.p', 'rb') as f:
+		pickle.dump(df_test_txt, f)
