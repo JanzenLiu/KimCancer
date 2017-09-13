@@ -10,12 +10,14 @@ class CharacterReplacer:
 	def replace_char(char, newchar, text):
 		return text.replace(char, newchar)
 
-	def replace_char_in_df(char, df):
-		row = self.dict[self.dict['from']==char]
+	def replace_char_in_df(row, df):
+		# row = self.dict[self.dict['from']==char]
 		code = row['hex']
 		newchar = row['to']
-		if not chr(int(code, 16)) == char:
+		char = chr(int(code, 16))
+		if not int(code, 16) == ord(char):
 			print("Charater and code mismatched, %s and %s" % (char, code))
+			return
 		if newchar == "comma":
 			print("Replacing %s(%s) with comma..." % (char, code))
 			df['Text'] = df['Text'].map(lambda x: self.replace_char(char, ',', x))
