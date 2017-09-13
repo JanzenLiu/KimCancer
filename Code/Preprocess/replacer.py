@@ -17,7 +17,7 @@ class CharacterReplacer:
 		code = row['hex']
 		newchar = row['to']
 		char = row['from']
-		if np.isnan(char):
+		if not char:
 			char = chr(int(code, 12))
 		if not int(code, 16) == ord(char):
 			print("Charater and code mismatched, %s and %s" % (char, code))
