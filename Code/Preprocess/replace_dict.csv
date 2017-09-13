@@ -127,7 +127,7 @@ from,hex,to
 ﬂ,0xfb02,ignore
 ﬀ,0xfb00,remove
 ▼,0x25bc,ignore
-‚,0x201a,
+‚,0x201a,comma
 ΰ,0x03b0,ignore
 ≦,0x2266,ignore
 √,0x221a,ignore
