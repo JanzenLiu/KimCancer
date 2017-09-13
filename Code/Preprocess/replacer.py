@@ -17,6 +17,8 @@ class CharacterReplacer:
 		code = row['hex']
 		newchar = row['to']
 		char = row['from']
+		if not code or not newchar:
+			return
 		if not char:
 			char = chr(int(code, 12))
 		if not int(code, 16) == ord(char):
