@@ -28,9 +28,8 @@ class CharacterReplacer:
 		elif newchar == "ignore":
 			print("Ignore %s(%s)..." % (char, code))
 		else:
-			print("Replacing %s(%s) with %s(%s)" % (char, code, newchar, "0x%04x") % ord(newchar))
+			print("Replacing %s(%s) with %s" % (char, code, newchar))
 			df['Text'] = df['Text'].map(lambda x: self.replace_char(char, newchar, x))
-		print("Processing Finished.")
 
 	def replace_all(self, df):
 		for index, row in self.dict.iterrows():
@@ -42,3 +41,4 @@ if __name__ == "__main__":
 	replacer = CharacterReplacer()
 	replacer.replace_all(df_train_txt)
 	replacer.replace_all(df_test_txt)
+	print("Processing Finished.")
