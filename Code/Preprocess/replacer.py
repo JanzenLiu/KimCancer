@@ -49,7 +49,8 @@ if __name__ == "__main__":
 	replacer.replace_all(df_test_txt)
 	print("Processing Finished.")
 
+	print("Saving processed text...")
 	with open('../../Data/train_text.processed.p', 'rb') as f:
 		pickle.dump(df_train_txt, f)
-	with open('../../Data/test_text/processed.p', 'rb') as f:
+	with open('../../Data/test_text.processed.p', 'rb') as f:
 		pickle.dump(df_test_txt, f)
