@@ -50,7 +50,7 @@ def extract_word_count(df, word, text_col="Text"):
 
 def extract_pattern_count(df, regex, pattern_name, text_col="Text"):
 	print("Extracting count of pattern %s..." % pattern_name)
-	feat_name = "count_of_pattern_%s" % pattern_name.replace(" ", "_")
+	feat_name = "count_of_pattern_%s" % pattern_name.replace(" ", "_").lower()
 	df[feat_name] = df[text_col].map(lambda x: count_pattern_in_text(x, regex))
 
 def extract_char_count(df, char, text_col="Text"):

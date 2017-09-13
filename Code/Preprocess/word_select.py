@@ -24,7 +24,13 @@ def extract_special_words(words, vocab):
 
     for w in words:
         if w.lower() not in vocab:
-            if w[-1] != 's' or (w[:-1].lower() not in vocab and \
+            # add this to tokenizer
+            if w[0] == '.':
+                w = w[1:]
+            if w[-1] == '.':
+                w = w[:-1]
+            if (w[-1] != 's' and w not in vocab) or 
+                (w[:-1].lower() not in vocab and \
                w[:-2].lower() not in vocab):
                 special_words.add(w)
                 continue

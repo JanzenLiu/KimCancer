@@ -26,7 +26,7 @@ Copy Number Loss
 Exon 20 insertions/deletions
 Exon 20 insertions
 Exon 13 deletion
-PAX8-PPAR? Fusion 			# should be PAX8-PPARγ, train#2910
+PAX8-PPAR? Fusion 			# correct to PAX8-PPARγ, train#2910
 Exon 11 mutations
 Exon 9 mutations
 Exon 1 mutations
