@@ -1,11 +1,12 @@
 import pandas as pd
+import csv
 import re
 import sys; sys.path.append("../Utils/")
 from reader import load_original_text
 
 class CharacterReplacer:
 	def __init__(self):
-		self.dict = pd.read_csv('replace_dict.csv')
+		self.dict = pd.read_csv('replace_dict.csv', quoting=csv.QUOTE_NONE, encoding="utf-8")
 
 	def replace_char(char, newchar, text):
 		return text.replace(char, newchar)
@@ -14,7 +15,7 @@ class CharacterReplacer:
 		# row = self.dict[self.dict['from']==char]
 		code = row['hex']
 		newchar = row['to']
-		char = chr(int(code, 16))
+		char = row['from']
 		if not int(code, 16) == ord(char):
 			print("Charater and code mismatched, %s and %s" % (char, code))
 			return
@@ -33,7 +34,7 @@ class CharacterReplacer:
 
 	def replace_all(df):
 		for index, row in self.dict.iterrows():
-			self.replace_char_in_df(row['from'], df)
+			self.replace_char_in_df(row, df)
 
 
 if __name__ == "__main__":
