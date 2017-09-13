@@ -10,9 +10,9 @@ from param_config import config
 def load_original_text():
 	print("Loading original text...")
 	df_train_txt = pd.read_csv(config.original_train_text_path, 
-		sep="\|\|", header=None, skiprows=1, names=["ID", "Text"], engine="python")
+		sep="\|\|", header=None, skiprows=1, names=["ID", "Text"], engine="python").fillna("")
 	df_test_txt = pd.read_csv(config.original_test_text_path, 
-		sep="\|\|", header=None, skiprows=1, names=["ID", "Text"], engine="python")
+		sep="\|\|", header=None, skiprows=1, names=["ID", "Text"], engine="python").fillna("")
 	return df_train_txt, df_test_txt
 
 '''return original variants data'''

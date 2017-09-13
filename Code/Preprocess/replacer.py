@@ -31,7 +31,7 @@ class CharacterReplacer:
 		elif newchar == "ignore":
 			print("Ignore %s(%s)..." % (char, code))
 		else:
-			print("Replacing %s(%s) with %s" % (char, code, newchar))
+			print("Replacing %s(%s) with %s..." % (char, code, newchar))
 			df['Text'] = df['Text'].map(lambda x: self.replace_char(char, newchar, x))
 
 	def replace_all(self, df):
