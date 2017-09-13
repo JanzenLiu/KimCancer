@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import csv
 import re
 import sys; sys.path.append("../Utils/")
@@ -16,6 +17,8 @@ class CharacterReplacer:
 		code = row['hex']
 		newchar = row['to']
 		char = row['from']
+		if np.isnan(char):
+			char = chr(int(code, 12))
 		if not int(code, 16) == ord(char):
 			print("Charater and code mismatched, %s and %s" % (char, code))
 			return
