@@ -8,10 +8,10 @@ class CharacterReplacer:
 	def __init__(self):
 		self.dict = pd.read_csv('replace_dict.csv', quoting=csv.QUOTE_NONE, encoding="utf-8")
 
-	def replace_char(char, newchar, text):
+	def replace_char(self, char, newchar, text):
 		return text.replace(char, newchar)
 
-	def replace_char_in_df(row, df):
+	def replace_char_in_df(self, row, df):
 		# row = self.dict[self.dict['from']==char]
 		code = row['hex']
 		newchar = row['to']
@@ -32,7 +32,7 @@ class CharacterReplacer:
 			df['Text'] = df['Text'].map(lambda x: self.replace_char(char, newchar, x))
 		print("Processing Finished.")
 
-	def replace_all(df):
+	def replace_all(self, df):
 		for index, row in self.dict.iterrows():
 			self.replace_char_in_df(row, df)
 
