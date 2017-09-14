@@ -46,7 +46,7 @@ class PatternReplacer:
 	def __init__(self):
 		self.dict = {
 			"base sequence": r"(?<=[^\w])[ATCUG]{4,}(?=[^\w])",
-			"url": r"(?:https?|ftp)?(?:\/{1,2})?(?:www\.)?[\w+\.\-]+\.(?:com|org|fr|jp|us|hk|cn|net|ch|gov|edu|ca|uk|de|info|dk|tw|il)(?:\:\d+)?(?:\/.+)*\/?",
+			"url": r"(?:https?|ftp)?(?:\/{1,2})?(?:www\.)?[\w+\.\-]+\.(?:com|org|fr|jp|us|hk|cn|net|ch|gov|edu|ca|uk|de|info|dk|tw|il)(?:\:\d+)?(?:\/[^\b]+)*\/?", # case sensitive
 			"jpg": r"[\w\.]+\.jpg",
 			"doi": r"doi:[\w\.\/\-]+",
 
