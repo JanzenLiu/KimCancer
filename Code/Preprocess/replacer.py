@@ -8,7 +8,7 @@ from reader import load_original_text
 
 class CharacterReplacer:
 	def __init__(self):
-		self.dict = pd.read_csv('replace_dict.csv', quoting=csv.QUOTE_NONE, encoding="utf-8")
+		self.dict = pd.read_csv('char_map', quoting=csv.QUOTE_NONE, encoding="utf-8")
 
 	def replace_char(self, char, newchar, text):
 		return text.replace(char, newchar)
@@ -42,6 +42,31 @@ class CharacterReplacer:
 			self.replace_char_in_df(row, df)
 
 
+class PatternReplacer:
+	def __init__(self):
+		self.dict = {
+			"base sequence": r"(?<=[^\w])[ATCUG]{4,}(?=[^\w])",
+			"url": r"(?:https?|ftp)?(?:\/{1,2})?(?:www\.)?[\w+\.\-]+\.(?:com|org|fr|jp|us|hk|cn|net|ch|gov|edu|ca|uk|de|info|dk|tw|il)(?:\:\d+)?(?:\/.+)*\/?",
+			"jpg": r"[\w\.]+\.jpg",
+			"doi": r"doi:[\w\.\/\-]+",
+
+		}
+
+	def replace_base_sequence(self, text):
+		return re.sub(self.dict["base sequence"], "baseseq", text, re.I)
+
+	def replace_url(self, text):
+		return re.sub(self.dict["url"], "urllink", text, re.I)
+
+	def replace_jpg(self, text):
+		return re.sub(self.dict["jpg"], "jpg figure", text ,re.I)
+
+
+def view_pattern(pattern, array):
+	for doc in array:
+		for match in re.findall(pattern, doc):
+			print(match)
+
 if __name__ == "__main__":
 	df_train_txt, df_test_txt = load_original_text()
 	replacer = CharacterReplacer()
@@ -50,7 +75,7 @@ if __name__ == "__main__":
 	print("Processing Finished.")
 
 	print("Saving processed text...")
-	with open('../../Data/train_text.processed.p', 'rb') as f:
+	with open('../../Data/train_text.processed.p', 'wb') as f:
 		pickle.dump(df_train_txt, f)
-	with open('../../Data/test_text.processed.p', 'rb') as f:
+	with open('../../Data/test_text.processed.p', 'wb') as f:
 		pickle.dump(df_test_txt, f)
