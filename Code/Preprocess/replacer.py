@@ -46,10 +46,12 @@ class PatternReplacer:
 	def __init__(self):
 		self.dict = {
 			"base sequence": r"(?<=[^\w])[ATCUG]{4,}(?=[^\w])",
-			"url": r"(?:https?|ftp)?(?:\/{1,2})?(?:www\.)?[\w+\.\-]+\.(?:com|org|fr|jp|us|hk|cn|net|ch|gov|edu|ca|uk|de|info|dk|tw|il)(?:\:\d+)?(?:\/[^\b]+)*\/?", # case sensitive
+			"url": r"(?:https?|ftp)?(?:\/{1,2})?(?:www\.)?[\w+\.\-]+\.(?:com|org|fr|jp|us|hk|cn|net|ch|gov|edu|ca|uk|de|info|dk|tw|il)(?:\:\d+)?(?:\/[^\b ,\)\]]+)*\/?", # case sensitive
 			"jpg": r"[\w\.]+\.jpg",
 			"doi": r"doi:[\w\.\/\-]+",
-
+			"equation": r"[a-z\u00ff-\uffff]+ ?=[\d\.\-:+,\/ e]+",
+			"version": r"v(?:er(?:sion)?)?\.? ?\d{1,2}[\.\d]*",
+			"sentence_segmentation": # actually it should be called shitty sentence segmentation
 		}
 
 	def replace_base_sequence(self, text):
