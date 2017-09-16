@@ -61,8 +61,8 @@ def gen_info(feat_path_name):
     np.savetxt("%s/train.feat.weight" % path, weight, fmt="%.6f")
     
     ## group
-    np.savetxt("%s/train.feat.group" % (path, [df_train_var.shape[0]], fmt="%d")
-    np.savetxt("%s/test.feat.group" % (path, [df_test_var.shape[0]], fmt="%d")
+    np.savetxt("%s/train.feat.group" % path, [df_train_var.shape[0]], fmt="%d")
+    np.savetxt("%s/test.feat.group" % path, [df_test_var.shape[0]], fmt="%d")
     
     ## labels
     df_train_var['Class'].to_csv("%s/train.label" % path, index=False, header=True)
