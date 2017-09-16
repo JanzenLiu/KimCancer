@@ -1,9 +1,10 @@
 import os
-import sys; sys.path.append("../"); sys.path.append("../Utils/")
+import sys; sys.path.append("../"); sys.path.append("Utils")
 import pickle
 import numpy as np
 import pandas as pd
 from param_config import config
+from reader import load_original_variants
 
 '''
 @ param:
@@ -14,8 +15,7 @@ def gen_info(feat_path_name):
     ## Load Data ##
     ###############
     ## load data
-    df_train_var = pd.read_csv(config.original_train_variant_path).fillna("")
-    df_test_var = pd.read_csv(config.original_test_variant_path).fillna("")
+    df_train_var, df_test_var = load_original_variants()
     ## insert fake label for test
     df_test_var["Class"] = np.ones((df_test_var.shape[0]))
     df_test_var["relevance_variance"] = np.zeros((df_test_var.shape[0]))
@@ -66,6 +66,5 @@ def gen_info(feat_path_name):
     
     ## labels
     df_train_var['Class'].to_csv("%s/train.label" % path, index=False, header=True)
-    df_test_var['Class'].to_csv("%s/test.label" % path, index=False, header=True)
     
     print("All Done.")
