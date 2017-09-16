@@ -6,53 +6,35 @@ import re
 to determine how many kind of general mutations(e.g. deletion, splice) are there to one hot, 
 which should make sense to combine with other one-hot feature, like AA_mutation, function_segment_mutation
 '''
+#####
+# 'c.' for coding DNA sequence
+# 'g.' for genomic sequence
+# 'm.' for mitochondrial sequence
+# 'r.' for an RNA sequence
+# 'p.' for a protein sequence
+
 
 ##########################
 ### AA-level Variation ###
 ##########################
-### deletion ###
+## features to engineer ##
 # start_AA, start_AA_known(bool) start_pos, 
-# end_AA, end_AA_known(bool), end_pos, 
-# AA_mutation(bool), AA_mutation_type(one-hot), AA_deletion_length
-var_regex_1 = r"^[A-Z]\d+_[A-Z]\d+del$" # 65 rows filtered out
-var_regex_2 = r"^[A-Z]\d+del$" # 32 rows filtered out
-var_regex_3 = r"^\d+_\d+del$" # 4 rows filtered out
-var_regex_4 = r"^[A-Z]\d+_[A-Z]\d+DEL$" # 1 rows filtered out
-
-### insertion ###
+# ..., end_AA, end_AA_known(bool), end_pos, 
+# ..., AA_mutation(bool), AA_mutation_type(one-hot), AA_deletion_length
 # ..., AA_insertion_length, AA_insertion_sequence(1st, 2nd...), AA_insertion_known(bool)
-var_regex_5 = r"^[A-Z]\d+ins[A-Z]+$" # 3 rows filtered out
-var_regex_6 = r"^[A-Z]\d+_[A-Z]\d+ins[A-Z]+$" # 40 rows filtered out
-var_regex_7 = r"^\d+_\d+ins[A-Z]+$" # 1 rows filtered out
-var_regex_8 = r"^[A-Z]\d+_[A-Z]\d+ins$" # 1 rows filtered out
-
-### deletion and insertion ###
 # ..., gross_AA_increase_length, single_mutation(bool)
-# origina_AA, new_AA, new_AA_terminator(bool, * stands for terminator) 
-var_regex_9 = r"^[A-Z]\d+_[A-Z]\d+delins[A-Z]+$" # 33 rows filtered out
-var_regex_10 = r"^[A-Z]\d+delins[A-Z]+$" # 4 rows filtered out
-var_regex_11 = r"^[A-Z]\d+[A-Z\*]$" # 8206 rows filtered out
-
-### duplication ###
+# ,,,, origina_AA, new_AA, new_AA_terminator(bool, * stands for terminator) 
 # ..., duplication_length
-var_regex_12 = r"^[A-Z]\d+_[A-Z]\d+dup$" # 10 rows filtered out
-var_regex_13 = r"^[A-Z]\d+dup$" # 5 rows filtered out
-
-### truncation ###
 # ..., truncation length
-var_regex_14 = r"^[A-Z]\d+_[A-Z]\d+trunc$" # 1 rows filtered out
-var_regex_15 = r"^\d+_\d+trunc$" # 4 rows filtered out
-
-### frame shift ###
 # ..., original_AA_before_shift, new_AA_after_shift, shift_length(the last number indicates length)
-var_regex_16 = r"^[A-Z]\d+fs" # 14 rows filtered out
-var_regex_17 = r"^[A-Z]\d+[A-Z]fs\*\d+$" # 6 rows filtered out
-var_regex_18 = r"^[A-Z]\d+[A-Z]fs\*$" # 2 rows filtered out
-
-### splice ###
-var_regex_19 = r"^[A-Z]\d+_splice$" # 9 rows filtered out
-var_regex_20 = r"^\d+_\d+splice$" # 2 rows filtered out
-var_regex_21 = r"^\d+_[A-Z]\d+splice$" # 1 rows filtered out
+r"(?:[cgmrp]\.)?[A-Z]?\d+(?:_?[A-Z]?\d+)?del(?:[A-Z]+)?" # deletion
+r"(?:[cgmrp]\.)?[A-Z]?\d+(?:_?[A-Z]?\d+)?ins(?:[A-Z]+)?" # insertion
+r"(?:[cgmrp]\.)?[A-Z]?\d+(?:_?[A-Z]?\d+)?delins(?:[A-Z]+)?" # deletion and insertion
+r"(?:[cgmrp]\.)?[A-Z]\d+[A-Z\*](?:Ter)?" # single position mutation
+r"(?:[cgmrp]\.)?[A-Z]?\d+(?:_?[A-Z]?\d+)?dup(?:[A-Z]+)?" # duplication
+r"(?:[cgmrp]\.)?[A-Z]?\d+(?:_?[A-Z]?\d+)?trunc(?:[A-Z]+)?" # truncation
+r"(?:[cgmrp]\.)?[A-Z]\d+[A-Z]?fs(?:(?:\*|Ter)\d+)?" # frame shift, not equal to "E2Fs", "Y527FS"
+r"(?:[cgmrp]\.)?[A-Z]?\d+(?:_?[A-Z]?\d+)?splice(?:[A-Z]+)?" # splice
 
 
 ####################################

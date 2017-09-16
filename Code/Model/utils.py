@@ -29,3 +29,15 @@ def multiclass_logloss(y_true, y_pred):
 	prob_pred = np.vectorize(lambda x: max(min(x, 1-eps), eps))(rescale(y_pred))
 	loss = -(prob_true*np.log(prob_pred)).sum(axis=1) # the loss vector can be returned if necessary
 	return loss.mean()
+
+#### sigmoid
+def sigmoid(score):
+    p = 1. / (1. + np.exp(-score))
+    return p
+
+#### softmax
+def softmax(score):
+    score = np.asarray(score, dtype=float)
+    score = np.exp(score-np.max(score))
+    score /= np.sum(score, axis=1)[:,np.newaxis]
+    return score

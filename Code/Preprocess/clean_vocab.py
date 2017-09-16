@@ -2,7 +2,7 @@ import re
 
 '^[\d\.\-+=\:,\/]*$'
 # "^5['′]-[UACTG]+-3['′]?+$" # case insensitive
-'^p=\d+\.\d+(?:e-\d+)?$'
+# '^p=\d+\.\d+(?:e-\d+)?$'
 '^\d*[pq][\d\.\-]*$'
 # '^[UACTG]+$'
 # "^5['′]-[UACTG]+$" # case insensitive
@@ -17,7 +17,7 @@ import re
 '^\d+p\d+-p\d+$'
 '^p=\d(?:\.\d+)?×10−?\d+$'
 '^[\w\.]+\.jpg$'
-'^[a-z]+=[\d\.\-:+=,\/ ]+$'
+'^[a-z]+=[\d\.\-:+=,\/ e]+$'
 # '^5-[ACUTG]+-3$'
 # add reference pattern
 # '^58-[ACUTG]+-38$'
@@ -26,15 +26,16 @@ import re
 '^\d*ins\d*$'
 # '[AUTCG]{5,}'
 '^p\.[A-Z]\d+(?:\-[A-Z]\d+)?$'
-'^v(?:er(?:sion)?)?[\.\d ]+$'
+# '^v(?:er(?:sion)?)?[\.\d ]+$'
 # "^[3589S'´′ \-]{1,4}[ACTUG]{5,}[3589'´′ \-]{1,4}$"
 # '^doi:[\w\.\/\- ]+$'
-'\d{1,3}(?:,\d{3})+' # to replace
+# '\d{1,3}(?:,\d{3})+' # to replace
 
 # typo
 'Referencec'
 # '^fig(?:ure)?s?[\w ,\.]+$' # notice, no consecutive english letter, try to resolve it.
 
+r"[A-Z]?\d+(?:_[A-Z]?\d+)?del" # <- use this
 r"^[A-Z]\d+_[A-Z]\d+del$" # 65 rows filtered out
 r"^[A-Z]\d+del$" # 32 rows filtered out
 r"^\d+_\d+del$" # 4 rows filtered out
