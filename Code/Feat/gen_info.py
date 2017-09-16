@@ -1,10 +1,10 @@
 import os
-import sys; sys.path.append("../"); sys.path.append("Utils")
+import sys; sys.path.append("../"); sys.path.append("../Utils/")
 import pickle
 import numpy as np
 import pandas as pd
 from param_config import config
-from reader import load_original_variants
+from reader import load_processed_variants
 
 '''
 @ param:
@@ -15,10 +15,9 @@ def gen_info(feat_path_name):
     ## Load Data ##
     ###############
     ## load data
-    df_train_var, df_test_var = load_original_variants()
+    df_train_var, df_test_var = load_processed_variants()
     ## insert fake label for test
     df_test_var["Class"] = np.ones((df_test_var.shape[0]))
-    df_test_var["relevance_variance"] = np.zeros((df_test_var.shape[0]))
 
     ## load pre-defined stratified k-fold index
     with open("%s/stratifiedKFold.%s.p" % (config.data_folder, config.stratified_label), "rb") as f:
@@ -30,7 +29,6 @@ def gen_info(feat_path_name):
     print("Generating info...")
     print("For cross-validation...")
     for run in range(config.n_runs):
-        ## use 80% for training and 20% for validation
         for fold, (trainInd, validInd) in enumerate(skf[run]):
             print("Run: %d, Fold: %d" % (run+1, fold+1))
             path = "%s/%s/Run%d/Fold%d" % (config.feat_folder, feat_path_name, run+1, fold+1)
@@ -66,5 +64,6 @@ def gen_info(feat_path_name):
     
     ## labels
     df_train_var['Class'].to_csv("%s/train.label" % path, index=False, header=True)
+    df_test_var['Class'].to_csv("%s/test.label" % path, index=False, header=True)
     
     print("All Done.")

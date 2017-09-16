@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import sys; sys.path.append("../Utils")
 from reader import load_original_variants
 from param_config import config
@@ -26,6 +27,9 @@ if __name__ == "__main__":
 	df_train_var["Variation"].set_value(1470, "FGFR2-PPHLN1 Fusion")
 	df_train_var["Variation"].set_value(1640, "internal tandem duplication")
 	df_train_var["Variation"].set_value(2910, "EPAX8-PPARγ Fusion")
+
+	print("Inserting fake class labels to test data...")
+	df_test_var["Class"] = np.ones(df_test_var.shape[0])
 
 	print("Saving processed variants data...")
 	df_train_var.to_csv(config.processed_train_variant_path, index=False)

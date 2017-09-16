@@ -93,7 +93,8 @@ Running this project requires following python packages:
 * numpy
 * pandas
 * sklearn
-* nltk (modu should be downloaded)
+* scipy
+* nltk (module should be downloaded before running)
 * gensim
 * cython (setup for word2vec acceleration should be done)
 
